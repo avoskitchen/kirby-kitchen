@@ -22,11 +22,23 @@ class NumberFormatter
         static::$useFractions = option('avoskitchen.kitchen.fractions', true);
 
         static::$fractions = [
+            static::getFractionKey(1 / 6) => '&#8537;',
+            static::getFractionKey(1 / 5) => '&#8533;',
             static::getFractionKey(1 / 4) => '&#188;',
             static::getFractionKey(1 / 3) => '&#8531;',
+            static::getFractionKey(2 / 5) => '&#8534;',
             static::getFractionKey(1 / 2) => '&#189;',
+            static::getFractionKey(3 / 5) => '&#8535;',
             static::getFractionKey(2 / 3) => '&#8532;',
             static::getFractionKey(3 / 4) => '&#190;',
+            static::getFractionKey(4 / 5) => '&#8536;',
+            static::getFractionKey(5 / 6) => '&#8538;',
+            
+            static::getFractionKey(1 / 8) => '&#8539;',
+            static::getFractionKey(3 / 8) => '&#8540;',
+            static::getFractionKey(5 / 8) => '&#8541;',
+            static::getFractionKey(7 / 8) => '&#8542;',
+
         ];
     }
 
