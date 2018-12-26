@@ -1,0 +1,19 @@
+label: Kategorien
+type: structure
+sortable: true
+fields:
+  slug:
+    label:
+      en: Key
+      de: Schlüssel
+    type: text
+    required: true
+    width: 1/2
+  title:
+    label:
+      en: Title
+      de: Titel
+    type: text
+    required: true
+    width: 1/2
+

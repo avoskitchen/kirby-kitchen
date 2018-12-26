@@ -1,0 +1,9 @@
+label:
+  en: Cuisines
+  de: Küchen
+type: multiselect
+options: query
+query:
+  fetch: page.parent.content.cuisines.toStructure.sortBy("title")
+  text: "{{ structureItem.title }}"
+  value: "{{ structureItem.slug }}"

@@ -1,0 +1,14 @@
+title: Glossareintrag
+icon: page
+num: zero
+
+columns:
+  - width: 2/3
+    fields:
+      text:
+        label: Text
+        type:  textarea
+
+  - width: 1/3
+    fields:
+      category: kitchen/fields/category

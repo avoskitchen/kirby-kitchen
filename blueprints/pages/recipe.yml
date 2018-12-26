@@ -1,0 +1,27 @@
+title: Rezept
+num: zero
+icon: kitchen-salad
+
+status:
+  draft:
+    label: Entwurf
+    text: Dieses Rezept ist im Entwurfsmodus. Es kann nur von angemeldeten Nutzer*innen gesehen werden.
+  unlisted:
+    label: Ungelistet
+    text: Dieses Rezept kann nur direkt über seine URL aufgerufen oder in andere Seiten eingebunden werden.
+  listed:
+    label: Veröffentlicht
+    text: Dieses Rezept erscheint im Rezepteverzeichnis.
+
+columns:
+
+################################################################################
+
+  - width: 2/3
+    sections:
+      files: kitchen/sections/files
+      content: kitchen/sections/recipe-content
+  - width: 1/3
+    sections:
+      meta: kitchen/sections/recipe-meta
+            

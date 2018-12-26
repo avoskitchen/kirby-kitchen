@@ -1,0 +1,10 @@
+label:
+  en: Category
+  de: Kategorie
+type: select
+options: query
+query:
+  fetch: page.parent.content.categories.toStructure.sortBy("title")
+  text: "{{ structureItem.title }}"
+  value: "{{ structureItem.slug }}"
+required: true

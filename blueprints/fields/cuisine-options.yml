@@ -1,0 +1,27 @@
+label:
+  en: Cuisines
+  de: Küchen
+type: structure
+help: >
+  Küchen dienen neben Kategorien der Ordnung deiner Rezepte, jedes Rezept kann
+  jedoch mehren Küchen zugeordnet werden. Das Standard-Set enthält eine Auswahl
+  internationaler Landesküchen und einiger Regionalküchen. Je nachdem, wie du
+  kochst solltest du entscheiden, ob es sinnvoller für dich ist, Landesküchen
+  (z.B. Japanisch, Deutsch, Thailändisch …) oder Regionalküchen (z.B. Hessisch,
+  Bayrisch, Norddeutsch …) zu verwenden.
+fields:
+  slug:
+    label:
+      en: Key
+      de: Schlüssel
+    type: text
+    required: true
+    width: 1/2
+  title:
+    label:
+      en: Title
+      de: Titel
+    type: text
+    required: true
+    width: 1/2
+

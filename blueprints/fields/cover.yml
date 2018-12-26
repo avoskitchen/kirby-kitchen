@@ -1,0 +1,7 @@
+cover:
+label:
+  en: Cover image
+  de: Cover-Bild
+type: files
+multiple: false
+layout: cards

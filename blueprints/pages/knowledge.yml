@@ -1,0 +1,44 @@
+title: Wissen
+icon: kitchen-library
+
+tabs:
+
+################################################################################
+
+  pages:
+    label: Einträge
+    icon: kitchen-library
+    sections:
+      drafts:
+        headline:
+          en: Drafts
+          de: Entwürfe
+        type: pages
+        info: "{{ page.panelListInfo }}"
+        status: draft
+        templates: term
+      published:
+        headline:
+          en: Published entries
+          de: Veröffentlichte Einträge
+        type: pages
+        info: "{{ page.panelListInfo }}"
+        status: listed
+        templates: term
+      unpublished:
+        headline:
+          en: Unlisted entries
+          de: Ungelistete Einträge
+        type: pages
+        info: "{{ page.panelListInfo }}"
+        status: unlisted
+        templates: term
+
+
+################################################################################
+
+  categories:
+    label: Kategorien
+    icon: tag
+    fields:
+      categories: kitchen/fields/category-options

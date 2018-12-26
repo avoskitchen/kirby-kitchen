@@ -1,0 +1,88 @@
+title: Rezepte
+icon: kitchen-directory
+
+tabs:
+
+################################################################################
+
+  recipes:
+    label:
+      en: Recipes
+      de: Rezepte
+    icon: kitchen-cookbook
+    sections:
+      drafts:
+        headline:
+          en: Drafts
+          de: Entwürfe
+        type: pages
+        info: "{{ page.panelListInfo }}"
+        templates: recipe
+        status: draft
+      published:
+        headline:
+          en: Published recipes
+          de: Veröffentlichte Rezepte
+        type: pages
+        info: "{{ page.panelListInfo }}"
+        templates: recipe
+        status: listed
+      unlisted:
+        headline:
+          en: Unlisted recipes
+          de: Ungelistete Rezepte
+        type: pages
+        info: "{{ page.panelListInfo }}"
+        templates: recipe
+        status: unlisted
+
+################################################################################
+
+  cuisines:
+    label: Küchen
+    icon: kitchen-world
+    fields:
+      cuisines: kitchen/fields/cuisine-options
+      cuisineDefaults:
+        label: Standard-Küchen laden
+        type: kitchen-ajaxbutton
+        hideif: has-cuisines
+        job: load-default-cuisines
+        progress: Wird ausgeführt …
+
+################################################################################
+
+  categories:
+    label: Kategorien
+    icon: tag
+    fields:
+      categories:
+        extends: kitchen/fields/category-options
+        help: |
+          Kategorien helfen bei der Ordnung und Gruppierung deiner Rezepte. Du
+          verwendest sie am besten je nachdem, was für Rezepte deine Sammlung
+          enthält. Das Standard-Set enthält Kategorien der klassischen Menüfolge
+          wie bswp. Vorspeisen, Hauptgerichte, Beilagen etc. Wenn du allerdigns
+          nur Backrezepte sammelst, dann könnte z.B. eine Aufteilung in Kuchen,
+          Dauergebäck, Brote etc. sinnvoller sein.
+      categoryDefaults:
+        label: Standard-Kategorien laden
+        type: kitchen-ajaxbutton
+        hideif: has-categories
+        job: load-default-categories
+        progress: Wird ausgeführt …
+
+################################################################################
+  
+  units:
+    label: Einheiten
+    icon: kitchen-scale
+    fields:
+      units: kitchen/fields/unit-options
+      unitDefaults:
+        label: Standard-Einheiten laden
+        type: kitchen-ajaxbutton
+        hideif: has-units
+        job: load-default-units
+        progress: Wird ausgeführt …
+

@@ -1,0 +1,46 @@
+type: fields
+fields:
+  text:
+    label:
+      en: Description/Introduction
+      de: Beschreibung/Einleitung
+    type: textarea
+  yield:
+    label:
+      en: Amount
+      de: Menge
+    type: number
+    icon: kitchen-salad
+    width: 1/3
+  yieldSingular:
+    label:
+      en: Unit (singular)
+      de: Einheit (Einzahl)
+    type: text
+    width: 1/3
+    default: Portion
+  yieldPlural:
+    label: Einheit (Mehrzahl)
+    type: text
+    width: 1/3
+    default: Portionen
+  ingredients:
+    label:
+      en: Ingredients
+      de: Zutaten
+    type: textarea
+  instructions:
+    label:
+      en: Instructions
+      de: Anweisungen
+    type: textarea
+  tips:
+    label:
+      en: Tips/Variations
+      de: Tipps/Varianten
+    type: textarea
+  source:
+    label:
+      en: Source
+      de: Quelle
+    type: textarea

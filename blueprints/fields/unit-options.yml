@@ -1,0 +1,30 @@
+label: 
+  en: units
+  de: Einheiten
+type: structure
+help: >
+  Einheiten werden verwendet, um die Zutatenlisten in den Rezepten automatisch
+  einzurücken und um Einzahl/Mehrzahl bei Änderung der Rezeptmenge korrekt
+  darzustellen. Falls du die Zutaten nicht eingerückt darstellen willst und
+  die Umrechnungsfunktion nicht verwendest, kannst du diese Liste
+  ignorieren.
+fields:
+  short:
+    label:
+      en: Short form
+      de: Abkürzung
+    type: text
+    width: 1/3
+  singular:
+    label:
+      en: Singular
+      de: Einzahl
+    type: text
+    required: true
+    width: 1/3
+  plural:
+    label:
+      en: Plural
+      de: Mehrzahl
+    type: text
+    width: 1/3

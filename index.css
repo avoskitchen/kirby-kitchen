@@ -1,0 +1,43 @@
+.kitchen-ajaxbutton {
+  background: #16171a;
+  border-radius: 1px;
+  color: #fff;
+  box-shadow: 0 2px 3px rgba(22,23,26,.4);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.25;
+  padding: .75rem 1rem;
+}
+
+.kitchen-ajaxbutton .k-button-text {
+  opacity: 1;
+}
+
+.kitchen-ajaxbutton.is-hidden {
+  display: none;
+}
+
+.kitchen-ajaxbutton:hover {
+  opacity: .75;
+}
+
+.kitchen-ajaxbutton.is-doing-job {
+  background-color: #444;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+.kitchen-ajaxbutton.has-response {
+  background-color: #999;
+}
+.kitchen-ajaxbutton.is-success {
+  background-color: #5d800d;
+}
+
+.kitchen-ajaxbutton.has-error {
+  background-color: #d16464;
+}
+
+
+.k-field-name-cuisines .k-multiselect-value {
+  display: none;
+}

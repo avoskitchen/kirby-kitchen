@@ -1,0 +1,22 @@
+{
+    "name": "avoskitchen/kitchen",
+    "type": "kirby-plugin",
+    "version": "0.1.0",
+    "description": "",
+    "license": "MIT",
+    "autoload": {
+      "files": [
+        "config.php"
+      ],
+      "psr-4": {
+          "AvosKitchen\\Kitchen\\": "classes/"
+      }
+    },
+    "authors": [
+        {
+            "name": "Fabian Michael",
+            "email": "hallo@fabianmichael.de"
+        }
+    ],
+    "require": {}
+}
