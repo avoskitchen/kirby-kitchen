@@ -1,7 +1,6 @@
 # Kitchen for Kirby 3
 
 ![GitHub release](https://img.shields.io/github/release/avoskitchen/kirby-kitchen.svg?maxAge=2592000)
-![License](https://img.shields.io/github/license/avoskitchen/kirby-kitchen.svg)
 
 ⚠️ This is beta software, use at you own risk! ⚠️
 
