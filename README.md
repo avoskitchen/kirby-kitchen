@@ -87,11 +87,11 @@ tabs:
     label: Settings
     icon: settings
     fields:
-	    hero:
-		    label: Hero image
-		    type: files
-		    multiple: false
-		  … 
+      hero:
+        label: Hero image
+        type: files
+        multiple: false
+      … 
 ```
 
 ## Credits
