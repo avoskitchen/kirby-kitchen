@@ -9,17 +9,6 @@ const sassSettings = {
 
 mix.sass('src/scss/kitchen.scss', 'css', sassSettings);
 
-/* Search for template-specific CSS files */
-
-// mix.browserSync({
-//   proxy: 'anarchist-kitchen.test',
-//   files: [
-//     'src/**/*',
-//     'assets/**/*',
-//   ],
-//   open: false,
-// });
-
 mix.setPublicPath('assets');
 mix.setResourceRoot('/assets/');
 
