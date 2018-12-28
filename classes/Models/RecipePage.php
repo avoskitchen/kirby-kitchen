@@ -66,7 +66,7 @@ class RecipePage extends Page
 
     public function cuisinesFormatted()
     {
-        if (is_null(static::$cuisinesCache)) {
+        if (static::$cuisinesCache === null) {
             $cuisines = [];
 
             foreach ($this->parent()->cuisines()->toStructure() as $item) {
