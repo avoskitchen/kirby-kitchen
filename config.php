@@ -135,9 +135,6 @@ Kirby::plugin('avoskitchen/kitchen', [
                 'cooldown' => function () {
                     return 2000;
                 },
-                'status' => function() {
-                    return '';
-                }
             ],
         ],
     ],

@@ -40,19 +40,21 @@ panel.plugin("avoskitchen/kitchen", {
         hideif: String,
         job: String,
         cooldown: Number,
-        status: String,
+      },
+
+      data() {
+        return {
+          status: 'is-hidden',
+        }
       },
 
       mounted() {
-        const that = this;
-
         if (typeof this.hideif !== 'undefined') {
-          this.apiRequest(this.hideif).then(function(response) {
-            that.status = response.result ? 'is-hidden' : '';
+          this.apiRequest(this.hideif).then((response) => {
+            if(!response.result) {
+              this.status = '';
+            }
           });
-        } else {
-          console.log("tihihih", this)
-          this.status = 'is-hidden';
         }
       },
 
