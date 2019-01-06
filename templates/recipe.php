@@ -1,5 +1,7 @@
 <?php snippet('header') ?>
 <?= css(Kirby::plugin('avoskitchen/kitchen')->mediaUrl() . '/css/kitchen.css') ?>
+<?php /* @var AvosKitchen\Kitchen\Models\RecipePage $page */ ?>
+<?php /* @var Kirby $kirby */ ?>
 
 <article class="recipe">
 
@@ -54,6 +56,9 @@
       <?php endif ?>
       <?php if ($page->lastEdited()->isNotEmpty()): ?>
         <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('d.m.Y \u\m H:i') ?> Uhr</p>
+      <?php endif ?>
+      <?php if ($kirby->user()): ?>
+        <p><a href="<?= $page->panelUrl() ?>">Bearbeiten</a></p>
       <?php endif ?>
     </div>
   </footer>
