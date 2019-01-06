@@ -18,5 +18,7 @@
             "email": "hallo@fabianmichael.de"
         }
     ],
-    "require": {}
+    "require": {
+      "php": ">=7.2"
+    }
 }
