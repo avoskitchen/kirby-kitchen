@@ -1,0 +1,5 @@
+[templates/**.php]
+indent_size = 2
+
+[snippets/**.php]
+indent_size = 2
