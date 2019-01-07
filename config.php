@@ -29,6 +29,10 @@ Kirby::plugin('avoskitchen/kitchen', [
         ],
     ],
 
+    'controllers' => [
+        'recipe' => require __DIR__ . '/controllers/recipe.php',
+    ],
+
     'routes' => [
         [
             // Fix to allow mp3 files as plugin assets, which is currently not
