@@ -15,29 +15,33 @@
     <?php endif ?>
   </header>
   
-  <?= $page->text()->kirbytext() ?>
+  <div class="recipe-text">
+    <?= $page->text()->kirbytext() ?>
+  </div>
   
-  <?php if ($page->ingredients()->isNotEmpty()): ?>
-    <div class="recipe-ingredients / js-kitchen-ingredients">
-      <h2>Zutaten</h2>
-      <?= $page->yieldFormatted() ?>
-      <?= $page->ingredientsFormatted() ?>
-    </div>
-  <?php endif ?>
+  <div class="recipe-preparation">
+    <?php if ($page->ingredients()->isNotEmpty()): ?>
+      <div class="recipe-ingredients / js-kitchen-ingredients">
+        <h2>Zutaten</h2>
+        <?= $page->yieldFormatted() ?>
+        <?= $page->ingredientsFormatted() ?>
+      </div>
+    <?php endif ?>
 
-  <?php if ($page->instructions()->isNotEmpty()): ?>
-    <div class="recipe-instructions">
-      <h2>Zubereitung</h2>
-      <?= $page->instructionsFormatted() ?>
-    </div>
-  <?php endif ?>
-  
-  <?php if ($page->tips()->isNotEmpty()): ?>
-    <div class="recipe-tips">
-      <h2>Tipps &amp; Varianten</h2>
-      <?= $page->tipsFormatted() ?>
-    </div>
-  <?php endif ?>
+    <?php if ($page->instructions()->isNotEmpty()): ?>
+      <div class="recipe-instructions">
+        <h2>Zubereitung</h2>
+        <?= $page->instructionsFormatted() ?>
+      </div>
+    <?php endif ?>
+    
+    <?php if ($page->tips()->isNotEmpty()): ?>
+      <div class="recipe-tips">
+        <h2>Tipps &amp; Varianten</h2>
+        <?= $page->tipsFormatted() ?>
+      </div>
+    <?php endif ?>
+  </div>
 
   <footer class="recipe-footer">
     <h2>Rezeptinformationen</h2>
