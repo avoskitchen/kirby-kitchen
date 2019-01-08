@@ -133,6 +133,19 @@ class RecipePage extends Page
         return (option('avoskitchen.kitchen.privateRecipes') && $this->private()->bool());
     }
 
+    public function userHasAccess(): bool
+    {
+        if (!option('avoskitchen.kitchen.privateRecipes') || !$this->private()->bool()) {
+            // Do no further checks, if the private recipes feature is disabled
+            // or the recipe is not private.
+            return true;
+        }
+
+        // Recipe is private, so return true if a looged-in
+        // user is given, otherwise false.
+        return kirby()->user() !== null;
+    }
+
     public function panelListInfo(): string
     {
         $categoryTitle = $this->categoryTitle();
