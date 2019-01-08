@@ -62,7 +62,7 @@
         <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('d.m.Y \u\m H:i') ?> Uhr</p>
       <?php endif ?>
       <?php if ($kirby->user()): ?>
-        <p><a href="<?= $page->panelUrl() ?>">Bearbeiten</a></p>
+        <p><a href="<?= $page->panelUrl() ?>" class="recipe-edit-link">Bearbeiten</a></p>
       <?php endif ?>
     </div>
   </footer>
