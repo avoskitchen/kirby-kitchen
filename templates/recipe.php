@@ -55,12 +55,19 @@
 
     <div class="recipe-meta">
       <p><strong>Kategorie:</strong> <?= $page->categoryTitle()->escape() ?></p>
+
+      <?php if(option('avoskitchen.kitchen.recipeTags') && $page->tags()->isNotEmpty()): ?>
+        <p><strong>Tags:</strong> <?= implode(', ', $page->tags()->split()) ?></p>
+      <?php endif ?>
+
       <?php if ($page->cuisines()->isNotEmpty()): ?>
         <p><strong>Küchen:</strong> <?= $page->cuisinesFormatted() ?></p>
       <?php endif ?>
+
       <?php if ($page->lastEdited()->isNotEmpty()): ?>
         <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('d.m.Y \u\m H:i') ?> Uhr</p>
       <?php endif ?>
+
       <?php if ($kirby->user()): ?>
         <p><a href="<?= $page->panelUrl() ?>" class="recipe-edit-link">Bearbeiten</a></p>
       <?php endif ?>
