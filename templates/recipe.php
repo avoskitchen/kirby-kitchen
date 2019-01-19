@@ -59,7 +59,8 @@
         <p><strong>Küchen:</strong> <?= $page->cuisinesFormatted() ?></p>
       <?php endif ?>
       <?php if ($page->lastEdited()->isNotEmpty()): ?>
-        <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('d.m.Y \u\m H:i') ?> Uhr</p>
+        <?php var_dump(option('date.handler')) ?>
+        <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('%d.%m.%Y um %H:%M') ?>&nbsp;Uhr</p>
       <?php endif ?>
       <?php if ($kirby->user()): ?>
         <p><a href="<?= $page->panelUrl() ?>" class="recipe-edit-link">Bearbeiten</a></p>

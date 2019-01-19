@@ -18,6 +18,12 @@ The plugin provides a set of templates that can be used as a starting point for 
 - One or more with the `recipes`  template. Each of these holds a recipe collection. For most users, one recipe directory should be enough. Note that having more than one recipe page 
 - If you want to use the knowledge-base, also create a page with the `knowledge` template. The knowledge base can be used to store information about different ingredients, preparation methods etc. There can only be one knowledge base on your site.
 
+## System Requirements
+
+- Kirby 3.0.0 or later
+- PHP 7.2+
+- Kirby’s [date handler](https://getkirby.com/docs/reference/options/date) has to be set to `strftime` in you config file.
+
 ## Available Options
 
 | Key | Type | Default | Description |
