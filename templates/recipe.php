@@ -65,7 +65,6 @@
       <?php endif ?>
 
       <?php if ($page->lastEdited()->isNotEmpty()): ?>
-        <?php var_dump(option('date.handler')) ?>
         <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('%d.%m.%Y um %H:%M') ?>&nbsp;Uhr</p>
       <?php endif ?>
 
