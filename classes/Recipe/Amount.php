@@ -41,7 +41,7 @@ class Amount
             $amount = $matches[2];
         }
 
-        if (preg_match('/^([\d.,])+([' . Chars::REGEX_SPACES . ']*[-–—][' . Chars::REGEX_SPACES . ']*)([\d.,])+$/', $amount, $matches)) {
+        if (preg_match('/^([\d.,]+)([' . Chars::REGEX_SPACES . ']*[-–—][' . Chars::REGEX_SPACES . ']*)([\d.,]+)$/', $amount, $matches)) {
             // Range, e.g. 2 - 6
             list(, $min, $sep, $max) = $matches;
             $this->min = (float) $min;
@@ -93,5 +93,16 @@ class Amount
     public function toFloat(float $yieldFactor = 1): float
     {
         return $yieldFactor * $this->max;
+    }
+
+    public function __debugInfo()
+    {
+        return [
+            'type' => $this->type,
+            'prefix' => $this->prefix,
+            'min' => $this->min,
+            'max' => $this->max,
+            'unit' => $this->unit,
+        ];
     }
 }

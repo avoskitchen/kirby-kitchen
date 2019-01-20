@@ -33,7 +33,6 @@ class NumberFormatter
             static::getFractionKey(3 / 4) => '&#190;',
             static::getFractionKey(4 / 5) => '&#8536;',
             static::getFractionKey(5 / 6) => '&#8538;',
-            
             static::getFractionKey(1 / 8) => '&#8539;',
             static::getFractionKey(3 / 8) => '&#8540;',
             static::getFractionKey(5 / 8) => '&#8541;',

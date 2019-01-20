@@ -26,6 +26,7 @@ class Ingredient
         $this->page = $page;
         $this->amount = new Amount($page, $amount, $unit);
         $this->item = $this->parseItem($item);
+
     }
 
     public static function fromString(Page $page, string $ingredient): Ingredient
@@ -35,7 +36,7 @@ class Ingredient
         preg_match('/^
             (?:-\s)? # Optional list item\/ingredient indicator prefix
             ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.\-–—\/]+|' . static::$amountsPattern . '))? # Prefix + Amount
-            (?:[' . Chars::REGEX_SPACES . ']?((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
+            (?:[' . Chars::REGEX_SPACES . ']*((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
             (?:\s+(.*)?) # Item description (rest of line)
             $/ux',
             trim($ingredient),
@@ -171,4 +172,12 @@ class Ingredient
         return str_replace(array_keys($replace), array_values($replace), $string);
     }
 
+    public function __debugInfo() {
+        return [
+            'amount' => $this->amount,
+            'unit' => $this->unit,
+            'item' => $this->item,
+            'page' => $this->page->id(),
+        ];
+    }
 }
