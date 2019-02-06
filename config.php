@@ -10,7 +10,7 @@ Kirby::plugin('avoskitchen/kitchen', [
 
     'options' => [
         'fractions' => true,
-        'decimals' => 3,
+        'decimals' => 1,
         'decimalPoint' => '.',
         'thousandsSeparator' => ',',
 

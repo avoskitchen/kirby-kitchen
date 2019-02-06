@@ -29,7 +29,7 @@ The plugin provides a set of templates that can be used as a starting point for 
 | Key | Type | Default | Description |
 |:----|:-----|:--------|:------------|
 | fractions | bool | `true` | Uses fractions to transform values like 0.5 into ½ in the ingredients list. Disable, if this does not look well in your font. |
-| decimals | int | `3` | Sets the number of decimals to be shown in the ingredients list, if odd numbers appear e.g. through changing the recipe yield. |
+| decimals | int | `1` | Sets the number of decimals to be shown in the ingredients list, if odd numbers appear e.g. through changing the recipe yield. |
 | decimalPoint | string | `'.'` | Sets the decimal point for ingredient amounts. Change this according to the language of your site. |
 | thousandsSeparator | string | `','` | Sets the thousands separator for ingredient amounts. Change this according to the language of your site. |
 | privateRecipes | bool | `true` | Enable/disable the *private recipes function* of the plugin. If enabled, you can create recipes that appear only to logged-in users on your site, but are inaccessible to anonymous visitors.
