@@ -7,6 +7,7 @@ use AvosKitchen\Kitchen\Recipe\IngredientList;
 use AvosKitchen\Kitchen\Traits\HasCategoryField;
 use Kirby\Cms\Field;
 use Kirby\Cms\Page;
+use Kirby\Cms\Collection;
 
 class RecipePage extends Page
 {
@@ -146,6 +147,40 @@ class RecipePage extends Page
         return kirby()->user() !== null;
     }
 
+    public function relatedRecipes(bool $unlisted = false): Collection
+    {
+        $category = $this->category()->value();
+        
+        if (empty($category)) {
+            return new Collection([], $this);
+        }
+        
+        $parent = $this->parent();
+        $related = $this->related()->toPages();
+
+        if ($related->count() > 0) {
+            $items = $related;
+        } else {
+            $items = $this->siblings(false)->filterBy('category', $category)->sortBy('title', 'asc');
+        }
+        
+        if ($unlisted === false) {
+            $items = $items->listed();
+        }
+
+        if ($parent->hasPrivateItems()) {
+            // Filter out private items, if user is not logged-in
+            $user = $this->kirby()->user();
+            if ($user === null) {
+                $items = $items->filter(function ($item) {
+                    return $item->isPrivate() === false;
+                });
+            }
+        }
+
+        return $items;
+    }
+
     public function panelListInfo(): string
     {
         $categoryTitle = $this->categoryTitle();
@@ -190,6 +225,43 @@ class RecipePage extends Page
 
         if (sizeof($styles) !== 0) {
             return $categoryTitle . '<style>' . implode('', $styles) . '</style>';
+        } else {
+            return $categoryTitle;
+        }
+    }
+
+    public function panelPopupInfo(): string
+    {
+        $categoryTitle = $this->categoryTitle();
+
+        if ($categoryTitle->isEmpty()) {
+            $categoryTitle = '—';
+        }
+
+        $styles = [];
+        $elements = [];
+
+        $styles[] = '.k-pages-field.k-field-name-related .k-list-item-text {
+            padding-left: 1.75rem;
+        }';
+
+        // Private recipes
+        if ($this->isPrivate()) {
+            $color = 'rgb(22, 23, 26);';
+            
+            $elements[] = '<svg viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg"><title>lock</title><g fill="' . $color . '"><path fill="' . $color . '" d="M8,0C5.8,0,4,1.8,4,4v1H2C1.4,5,1,5.4,1,6v9c0,0.6,0.4,1,1,1h12c0.6,0,1-0.4,1-1V6c0-0.6-0.4-1-1-1h-2V4 C12,1.8,10.2,0,8,0z M9,11.7V13H7v-1.3c-0.6-0.3-1-1-1-1.7c0-1.1,0.9-2,2-2s2,0.9,2,2C10,10.7,9.6,11.4,9,11.7z M10,5H6V4 c0-1.1,0.9-2,2-2s2,0.9,2,2V5z"></path></g></svg>';
+
+            $styles[] = ".k-pages-field.k-field-name-related .k-list-item-text small svg {
+                position: absolute;
+                left: 46px;
+                height: .75rem;
+                width: .75rem;
+                top: 12px;
+            }";
+        }
+
+        if (sizeof($styles) !== 0) {
+            return $categoryTitle . '<style>' . implode('', $styles) . '</style>' . implode('', $elements); // '<style>' . implode('', $styles) . '</style>';
         } else {
             return $categoryTitle;
         }
