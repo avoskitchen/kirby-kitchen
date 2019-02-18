@@ -8,14 +8,11 @@ use Kirby\Toolkit\Str;
 
 class Ingredient
 {
-    const INDEFINITE_AMOUNT_WORDS = ['einige', 'viele', 'wenige', 'etwas'];
-
     protected $amount;
     protected $unit;
     protected $item;
     protected $page;
 
-    public static $amountsPattern = '';
     public static $unitsPattern = '';
     public static $units = '';
 
@@ -35,8 +32,8 @@ class Ingredient
 
         preg_match('/^
             (?:-\s)? # Optional list item\/ingredient indicator prefix
-            ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.\-–—\/]+|' . static::$amountsPattern . '))? # Prefix + Amount
-            (?:[' . Chars::REGEX_SPACES . ']*((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
+            ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.\-–—\/' . Chars::REGEX_SPACES . ']+))? # Prefix + Amount
+            (?:((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
             (?:\s+(.*)?) # Item description (rest of line)
             $/ux',
             trim($ingredient),
@@ -147,10 +144,6 @@ class Ingredient
             $units = array_map(function ($var) {return preg_quote($var, '/');}, $units);
             static::$units = array_flip($units);
             static::$unitsPattern = implode('|', $units);
-        }
-
-        if (empty(static::$amountsPattern)) {
-            static::$amountsPattern = implode('|', static::INDEFINITE_AMOUNT_WORDS);
         }
     }
 

@@ -47,14 +47,28 @@ class Amount
             $this->min = (float) $min;
             $this->max = (float) $max;
             $this->type = static::TYPE_RANGE;
-        } else if (preg_match('/^([\d+,.])\/([\d+,.]+)$/', $amount, $matches)) {
-            // Fraction, e.g. 1/2
-            list(, $nom, $dnom) = $matches;
-            $this->min = $this->max = (float) ($nom / $dnom);
+        } else if (preg_match('/^(\d*)(\s*[½⅓⅔¼¾]|\s+[\d,.]+\/[\d,.]+)$/u', $amount, $matches)) {
+            // Fraction, e.g. 1 1/2, 1½, 1 ½
+            list(, $int, $fraction) = $matches;
+
+            $result = 0;
+
+            if ((int) $int > 0) {
+                $result += (int) $int;
+            }
+
+            if (strstr($fraction, '/')) {
+                list($nom, $dnom) = explode('/', $fraction);
+                $result += (float) ($nom / $dnom);
+            } else if ($val = NumberFormatter::fractionToFloat($fraction)) {
+                $result += $val;
+            }
+
+            $this->min = $this->max = $result;
             $this->type = static::TYPE_FRACTION;
-        } else if ((float) $amount > 0) {
+        } else if ((float) str_replace(',', '.', $amount) > 0) {
             // Simple numeric value, e.g. 12 or 1,5
-            $this->min = $this->max = (float) $amount;
+            $this->min = $this->max = (float) str_replace(',', '.', $amount);
             $this->type = static::TYPE_FLOAT;
         } else {
             // Unknown value

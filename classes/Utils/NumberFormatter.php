@@ -14,6 +14,14 @@ class NumberFormatter
     protected static $thousandsSeparator = ',';
     protected static $useFractions = true;
 
+    public static $fractionEquivalents = [
+        '½' => 1 / 2,
+        '⅓' => 1 / 3,
+        '⅔' => 2 / 3,
+        '¼' => 1 / 4,
+        '¾' => 3 / 4,
+    ];
+
     public static function initSettings(): void
     {
         static::$decimalPoint = option('avoskitchen.kitchen.decimalPoint', '.');
@@ -76,6 +84,8 @@ class NumberFormatter
 
     public static function format(float $amount, string $unit = null): string
     {
+        $aa = $amount;
+        
         if ($unit === 'ml' && $amount >= 1000) {
             $amount /= 1000;
             $unit = 'l';
@@ -115,5 +125,16 @@ class NumberFormatter
     public static function formatRange(float $min, float $max, string $unit = null): string
     {
         return static::format($min) . "\u{00a0}–\u{00a0}" . static::format($max, $unit);
+    }
+
+    public static function fractionToFloat(string $fraction): float
+    {
+        if (isset(static::$fractionEquivalents[$fraction])) {
+            return static::$fractionEquivalents[$fraction];
+        } else if ($parts = explode('/', $fraction) && sizeof($parts) > 0) {
+            return (float) ((int) $parts[0] / (int) $parts[0]);
+        } else {
+            return null;
+        }
     }
 }

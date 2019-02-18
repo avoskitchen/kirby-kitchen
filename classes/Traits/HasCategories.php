@@ -50,7 +50,7 @@ trait HasCategories
             $items = $items->listed();
         }
 
-        if ($this->hasPrivateItems) {
+        if ($this->hasPrivateItems()) {
             // Filter out private items, if user is not logged-in
             $user = $this->kirby()->user();
             if ($user === null) {
@@ -84,5 +84,10 @@ trait HasCategories
         }
 
         return new Collection($index, []);
+    }
+
+    public function hasPrivateItems(): bool
+    {
+        return $this->hasPrivateItems;
     }
 }
