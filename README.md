@@ -18,12 +18,18 @@ The plugin provides a set of templates that can be used as a starting point for 
 - One or more with the `recipes`  template. Each of these holds a recipe collection. For most users, one recipe directory should be enough. Note that having more than one recipe page 
 - If you want to use the knowledge-base, also create a page with the `knowledge` template. The knowledge base can be used to store information about different ingredients, preparation methods etc. There can only be one knowledge base on your site.
 
+## System Requirements
+
+- Kirby 3.0.0 or later
+- PHP 7.2+
+- Kirby’s [date handler](https://getkirby.com/docs/reference/options/date) has to be set to `strftime` in you config file.
+
 ## Available Options
 
 | Key | Type | Default | Description |
 |:----|:-----|:--------|:------------|
 | fractions | bool | `true` | Uses fractions to transform values like 0.5 into ½ in the ingredients list. Disable, if this does not look well in your font. |
-| decimals | int | `3` | Sets the number of decimals to be shown in the ingredients list, if odd numbers appear e.g. through changing the recipe yield. |
+| decimals | int | `1` | Sets the number of decimals to be shown in the ingredients list, if odd numbers appear e.g. through changing the recipe yield. |
 | decimalPoint | string | `'.'` | Sets the decimal point for ingredient amounts. Change this according to the language of your site. |
 | thousandsSeparator | string | `','` | Sets the thousands separator for ingredient amounts. Change this according to the language of your site. |
 | privateRecipes | bool | `true` | Enable/disable the *private recipes function* of the plugin. If enabled, you can create recipes that appear only to logged-in users on your site, but are inaccessible to anonymous visitors.

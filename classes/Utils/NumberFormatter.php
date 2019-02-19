@@ -9,35 +9,42 @@ namespace AvosKitchen\Kitchen\Utils;
 class NumberFormatter
 {
     protected static $decimalPoint = ',';
-    protected static $decimals  = 3;
+    protected static $decimals  = 1;
     protected static $fractions = [];
     protected static $thousandsSeparator = ',';
     protected static $useFractions = true;
 
+    public static $fractionEquivalents = [
+        '½' => 1 / 2,
+        '⅓' => 1 / 3,
+        '⅔' => 2 / 3,
+        '¼' => 1 / 4,
+        '¾' => 3 / 4,
+    ];
+
     public static function initSettings(): void
     {
         static::$decimalPoint = option('avoskitchen.kitchen.decimalPoint', '.');
-        static::$decimals = option('avoskitchen.kitchen.decimals', 3);
+        static::$decimals = option('avoskitchen.kitchen.decimals', 1);
         static::$thousandsSeparator = option('avoskitchen.kitchen.thousandsSeparator', ',');
         static::$useFractions = option('avoskitchen.kitchen.fractions', true);
 
         static::$fractions = [
-            static::getFractionKey(1 / 6) => '&#8537;',
-            static::getFractionKey(1 / 5) => '&#8533;',
+            // static::getFractionKey(1 / 6) => '&#8537;',
+            // static::getFractionKey(1 / 5) => '&#8533;',
             static::getFractionKey(1 / 4) => '&#188;',
             static::getFractionKey(1 / 3) => '&#8531;',
-            static::getFractionKey(2 / 5) => '&#8534;',
+            // static::getFractionKey(2 / 5) => '&#8534;',
             static::getFractionKey(1 / 2) => '&#189;',
-            static::getFractionKey(3 / 5) => '&#8535;',
+            // static::getFractionKey(3 / 5) => '&#8535;',
             static::getFractionKey(2 / 3) => '&#8532;',
             static::getFractionKey(3 / 4) => '&#190;',
-            static::getFractionKey(4 / 5) => '&#8536;',
-            static::getFractionKey(5 / 6) => '&#8538;',
-            
-            static::getFractionKey(1 / 8) => '&#8539;',
-            static::getFractionKey(3 / 8) => '&#8540;',
-            static::getFractionKey(5 / 8) => '&#8541;',
-            static::getFractionKey(7 / 8) => '&#8542;',
+            // static::getFractionKey(4 / 5) => '&#8536;',
+            // static::getFractionKey(5 / 6) => '&#8538;',
+            // static::getFractionKey(1 / 8) => '&#8539;',
+            // static::getFractionKey(3 / 8) => '&#8540;',
+            // static::getFractionKey(5 / 8) => '&#8541;',
+            // static::getFractionKey(7 / 8) => '&#8542;',
 
         ];
     }
@@ -77,6 +84,8 @@ class NumberFormatter
 
     public static function format(float $amount, string $unit = null): string
     {
+        $aa = $amount;
+        
         if ($unit === 'ml' && $amount >= 1000) {
             $amount /= 1000;
             $unit = 'l';
@@ -116,5 +125,16 @@ class NumberFormatter
     public static function formatRange(float $min, float $max, string $unit = null): string
     {
         return static::format($min) . "\u{00a0}–\u{00a0}" . static::format($max, $unit);
+    }
+
+    public static function fractionToFloat(string $fraction): float
+    {
+        if (isset(static::$fractionEquivalents[$fraction])) {
+            return static::$fractionEquivalents[$fraction];
+        } else if ($parts = explode('/', $fraction) && sizeof($parts) > 0) {
+            return (float) ((int) $parts[0] / (int) $parts[0]);
+        } else {
+            return null;
+        }
     }
 }

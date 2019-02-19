@@ -13,7 +13,8 @@ return [
 
         $base = site()->children()->filterBy('template', 'knowledge')->first()->id();
 
-        $target =  $base . '/' . $tag->attr('term');
+        $term = $tag->attr('term');
+        $target =  "{$base}/{$term}";
         $link = url($target, $tag->attr('lang'));
         $text = $tag->attr('text');
 
@@ -22,7 +23,7 @@ return [
             if ($targetPage) {
                 $text = $targetPage->title();
             } else {
-                $text = '[⚠️ Missing page: ' . $link . ']';
+                $text = "[⚠️ Missing term: {$term}]";
             }
         }
 

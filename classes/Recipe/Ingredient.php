@@ -8,14 +8,11 @@ use Kirby\Toolkit\Str;
 
 class Ingredient
 {
-    const INDEFINITE_AMOUNT_WORDS = ['einige', 'viele', 'wenige', 'etwas'];
-
     protected $amount;
     protected $unit;
     protected $item;
     protected $page;
 
-    public static $amountsPattern = '';
     public static $unitsPattern = '';
     public static $units = '';
 
@@ -26,6 +23,7 @@ class Ingredient
         $this->page = $page;
         $this->amount = new Amount($page, $amount, $unit);
         $this->item = $this->parseItem($item);
+
     }
 
     public static function fromString(Page $page, string $ingredient): Ingredient
@@ -34,8 +32,8 @@ class Ingredient
 
         preg_match('/^
             (?:-\s)? # Optional list item\/ingredient indicator prefix
-            ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.\-–—\/]+|' . static::$amountsPattern . '))? # Prefix + Amount
-            (?:[' . Chars::REGEX_SPACES . ']?((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
+            ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.\-–—\/' . Chars::REGEX_SPACES . ']+))? # Prefix + Amount
+            (?:((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
             (?:\s+(.*)?) # Item description (rest of line)
             $/ux',
             trim($ingredient),
@@ -147,10 +145,6 @@ class Ingredient
             static::$units = array_flip($units);
             static::$unitsPattern = implode('|', $units);
         }
-
-        if (empty(static::$amountsPattern)) {
-            static::$amountsPattern = implode('|', static::INDEFINITE_AMOUNT_WORDS);
-        }
     }
 
     /**
@@ -171,4 +165,12 @@ class Ingredient
         return str_replace(array_keys($replace), array_values($replace), $string);
     }
 
+    public function __debugInfo() {
+        return [
+            'amount' => $this->amount,
+            'unit' => $this->unit,
+            'item' => $this->item,
+            'page' => $this->page->id(),
+        ];
+    }
 }
