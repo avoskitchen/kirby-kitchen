@@ -5,9 +5,6 @@
     "description": "",
     "license": "MIT",
     "autoload": {
-      "files": [
-        "config.php"
-      ],
       "psr-4": {
           "AvosKitchen\\Kitchen\\": "classes/"
       }
@@ -19,6 +16,10 @@
         }
     ],
     "require": {
-      "php": ">=7.2"
+      "php": ">=7.2",
+      "getkirby/composer-installer": "^1.1"
+    },
+    "config": {
+      "optimize-autoloader": true
     }
 }
