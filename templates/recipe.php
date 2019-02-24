@@ -14,10 +14,12 @@
       </figure>
     <?php endif ?>
   </header>
-  
-  <div class="recipe-text">
-    <?= $page->text()->kirbytext() ?>
-  </div>
+
+  <?php if($page->text()->isNotEmpty()): ?>
+    <div class="recipe-text">
+      <?= $page->text()->kirbytext() ?>
+    </div>
+  <?php endif ?>
   
   <div class="recipe-preparation">
     <?php if ($page->ingredients()->isNotEmpty()): ?>
