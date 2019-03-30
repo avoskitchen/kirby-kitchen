@@ -4,7 +4,6 @@ namespace AvosKitchen\Kitchen\Recipe;
 
 use AvosKitchen\Kitchen\Utils\Chars;
 use Kirby\Cms\Page;
-use Kirby\Toolkit\Str;
 
 class Ingredient
 {
