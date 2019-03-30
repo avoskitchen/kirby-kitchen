@@ -35,20 +35,20 @@ class Amount
 
         $amount = trim($amount);
 
-        if (preg_match('/^((?:' . Chars::REGEX_PREFIXES . ')\s?)(.*)$/', $amount, $matches)) {
+        if (preg_match('/^((?:' . Chars::REGEX_PREFIXES . ')\s?)(.*)$/u', $amount, $matches)) {
             // Extract amount prefix
             $this->prefix = trim($matches[1]);
             $amount = $matches[2];
         }
 
-        if (preg_match('/^([\d.,]+)([' . Chars::REGEX_SPACES . ']*[-–—][' . Chars::REGEX_SPACES . ']*)([\d.,]+)$/', $amount, $matches)) {
+        if (preg_match('/^([\d.,]+)([' . Chars::REGEX_SPACES . ']*[-–—][' . Chars::REGEX_SPACES . ']*)([\d.,]+)$/u', $amount, $matches)) {
             // Range, e.g. 2 - 6
             list(, $min, $sep, $max) = $matches;
             $this->min = (float) $min;
             $this->max = (float) $max;
             $this->type = static::TYPE_RANGE;
-        } else if (preg_match('/^(\d*)(\s*[½⅓⅔¼¾]|\s+[\d,.]+\/[\d,.]+)$/u', $amount, $matches)) {
-            // Fraction, e.g. 1 1/2, 1½, 1 ½
+        } else if (preg_match('/^(\d+)(\s*[½⅓⅔¼¾]|\s+[\d,\.]+\/[\d,\.]+)$/u', $amount, $matches)) {
+            // Fraction with multiplier, e.g. 2 1/2
             list(, $int, $fraction) = $matches;
 
             $result = 0;
@@ -66,6 +66,14 @@ class Amount
 
             $this->min = $this->max = $result;
             $this->type = static::TYPE_FRACTION;
+
+        } else if (preg_match('/^([½⅓⅔¼¾]|[\d,\.]+\/[\d,\.]+)$/u', $amount, $matches)) {
+            // Fraction, e.g. 1/2 or ½
+
+            list($nom, $dnom) = explode('/', $amount);
+            $this->min = $this->max = (float) ($nom / $dnom);
+            $this->type = static::TYPE_FRACTION;
+
         } else if ((float) str_replace(',', '.', $amount) > 0) {
             // Simple numeric value, e.g. 12 or 1,5
             $this->min = $this->max = (float) str_replace(',', '.', $amount);

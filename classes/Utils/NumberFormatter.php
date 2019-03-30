@@ -9,7 +9,7 @@ namespace AvosKitchen\Kitchen\Utils;
 class NumberFormatter
 {
     protected static $decimalPoint = ',';
-    protected static $decimals  = 1;
+    protected static $decimals  = 2;
     protected static $fractions = [];
     protected static $thousandsSeparator = ',';
     protected static $useFractions = true;
@@ -25,7 +25,7 @@ class NumberFormatter
     public static function initSettings(): void
     {
         static::$decimalPoint = option('avoskitchen.kitchen.decimalPoint', '.');
-        static::$decimals = option('avoskitchen.kitchen.decimals', 1);
+        static::$decimals = option('avoskitchen.kitchen.decimals', 2);
         static::$thousandsSeparator = option('avoskitchen.kitchen.thousandsSeparator', ',');
         static::$useFractions = option('avoskitchen.kitchen.fractions', true);
 
