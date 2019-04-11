@@ -5,7 +5,6 @@ namespace AvosKitchen\Kitchen\Traits;
 use AvosKitchen\Kitchen\Category;
 use Kirby\Cms\Field;
 use Kirby\Toolkit\Collection;
-use Kirby\Toolkit\Obj;
 
 /**
  * Used in models for pages that have subpages with a
@@ -13,6 +12,7 @@ use Kirby\Toolkit\Obj;
  */
 trait HasCategories
 {
+    use HasItems;
 
     protected static $categoryCache = null;
     protected static $categoriesFieldName = 'categories';
@@ -44,22 +44,7 @@ trait HasCategories
      */
     public function getItemsGroupedByCategory(bool $unlisted = false): Collection
     {
-        $items = $this->children();
-
-        if ($unlisted === false) {
-            $items = $items->listed();
-        }
-
-        if ($this->hasPrivateItems()) {
-            // Filter out private items, if user is not logged-in
-            $user = $this->kirby()->user();
-            if ($user === null) {
-                $items = $items->filter(function ($item) {
-                    return $item->isPrivate() === false;
-                });
-            }
-        }
-
+        $items = $this->getItems($unlisted);
         $index = [];
 
         if (!$items->count() === 0) {
