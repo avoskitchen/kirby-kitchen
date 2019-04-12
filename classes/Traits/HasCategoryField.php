@@ -12,12 +12,10 @@ use Kirby\Toolkit\Obj;
  */
 trait HasCategoryField
 {
-    protected static $categoryFieldName = 'category';
-
     public function categoryTitle(): Field
     {
         $parent   = $this->parent();
-        $category = $this->{static::$categoryFieldName}()->value();
+        $category = $this->content()->get('category')->value();
 
         $title = null;
 

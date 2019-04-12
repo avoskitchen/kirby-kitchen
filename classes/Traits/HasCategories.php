@@ -14,28 +14,38 @@ trait HasCategories
 {
     use HasItems;
 
-    protected static $categoryCache = null;
-    protected static $categoriesFieldName = 'categories';
+    protected static $allCategoryCache = null;
+    protected static $nonEmptyCategoryCache = null;
 
     protected $hasPrivateItems = false;
 
     /**
      * Returns a list of all defined categories.
      */
-    public function getCategories(): array
+    public function getCategories(bool $empty = true, bool $unlisted = false): array
     {
-        if (static::$categoryCache === null) {
+        if (static::$allCategoryCache === null) {
 
             $categories = [];
 
-            foreach ($this->content()->{static::$categoriesFieldName}()->toStructure() as $item) {
+            foreach ($this->content()->get('categories')->toStructure() as $item) {
                 $categories[$item->slug()->value()] = $item->title()->value();
             }
 
-            static::$categoryCache = $categories;
+            static::$allCategoryCache = $categories;
         }
 
-        return static::$categoryCache;
+        if ($empty === true) {
+            return static::$allCategoryCache;
+        }
+
+        if (static::$nonEmptyCategoryCache === null) {
+            $keysArray = $this->getItems($unlisted)->pluck('category', null, true);
+            $keysArray = array_flip(array_map(function($v) { return $v->value(); }, $keysArray));
+            static::$nonEmptyCategoryCache = array_intersect_key(static::$allCategoryCache, $keysArray);
+        }
+        
+        return static::$nonEmptyCategoryCache;
     }
 
     /**
@@ -59,7 +69,7 @@ trait HasCategories
                 continue;
             }
 
-            $id = $this->id() . '/' . static::$categoriesFieldName . '/' . $slug;
+            $id = $this->id() . '/categories/' . $slug;
 
             $index[] = new Category($id, [
                 'slug' => new Field($this, 'slug', $slug),
