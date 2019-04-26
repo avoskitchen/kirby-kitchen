@@ -6,13 +6,9 @@ use Kirby\Toolkit\Collection;
 
 trait HasItems
 {
-    public function getItems(bool $unlisted = false): Collection
+    public function children(): Collection
     {
-        $items = $this->children();
-
-        if ($unlisted === false) {
-            $items = $items->listed();
-        }
+        $items = parent::children();
 
         // Filter out private items, if user is not logged-in
         if ($this->hasPrivateItems() && $this->kirby()->user() === null) {

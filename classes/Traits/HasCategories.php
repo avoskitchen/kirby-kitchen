@@ -40,8 +40,15 @@ trait HasCategories
         }
 
         if (static::$nonEmptyCategoryCache === null) {
-            $keysArray = $this->getItems($unlisted)->pluck('category', null, true);
+            $items = $this->children();
+
+            if($unlisted === false) {
+                $items = $items->listed();
+            }
+            
+            $keysArray = $items->pluck('category', null, true);
             $keysArray = array_flip(array_map(function($v) { return $v->value(); }, $keysArray));
+            
             static::$nonEmptyCategoryCache = array_intersect_key(static::$allCategoryCache, $keysArray);
         }
         
@@ -54,7 +61,12 @@ trait HasCategories
      */
     public function getItemsGroupedByCategory(bool $unlisted = false): Collection
     {
-        $items = $this->getItems($unlisted);
+        $items = $this->children();
+
+        if ($unlisted === false) {
+            $items = $items->listed();
+        }
+
         $index = [];
 
         if (!$items->count() === 0) {
