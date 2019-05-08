@@ -14,8 +14,17 @@ return [
         $base = site()->children()->filterBy('template', 'knowledge')->first()->id();
 
         $term = $tag->attr('term');
-        $target =  "{$base}/{$term}";
-        $link = url($target, $tag->attr('lang'));
+
+        if ($hashPos = strpos($term, '#') !== false) {
+            $hash = substr($term, $hashPos);
+            $term = substr($term, 0, $hashPos);
+        } else {
+            $hash = '';
+        }
+        
+        $target = "{$base}/{$term}";
+
+        $link = url($target, $tag->attr('lang')) . $hash;
         $text = $tag->attr('text');
 
         if (empty($text)) {

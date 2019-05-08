@@ -20,6 +20,14 @@ return [
         $parentPage = $tag->parent()->parent();
         $recipe =  $tag->attr('recipe');
 
+        
+        if ($hashPos = strpos($recipe, '#') !== false) {
+            $hash = substr($recipe, $hashPos);
+            $recipe = substr($recipe, 0, $hashPos);
+        } else {
+            $hash = '';
+        }
+
         if(strstr($recipe, '/')) {
             // absolute path
             $target = $recipe;
@@ -29,7 +37,7 @@ return [
             $target = $base . '/' . $tag->attr('recipe');
         }
 
-        $link = url($target, $tag->attr('lang'));
+        $link = url($target, $tag->attr('lang')) . $hash;
         $text = $tag->attr('text');
 
         if (empty($text)) {
