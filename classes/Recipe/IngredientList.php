@@ -77,7 +77,7 @@ class IngredientList
                     $html[] = '<div class="ingredient-group" markdown="1">';
                 }
 
-                $html[] = $item;
+                $html[] = (new Ingredient($this->page, null, null, $item))->format($yieldFactor);
                 
                 $lastItem = 'text';
             }
