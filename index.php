@@ -197,11 +197,13 @@ Kirby::plugin('avoskitchen/kitchen', [
 	],
 
 	'snippets' => [
+		'recipes-gallery' => __DIR__ . '/snippets/recipes-gallery.php',
 		'yield' => __DIR__ . '/snippets/yield.php',
 	],
 
 	'tags' => [
 		'recipe' => require __DIR__ . '/tags/recipe.php',
+		'recipes-gallery' => require __DIR__ . '/tags/recipes-gallery.php',
 		'term' => require __DIR__ . '/tags/term.php',
 		'timer' => require __DIR__ . '/tags/timer.php',
 	],
