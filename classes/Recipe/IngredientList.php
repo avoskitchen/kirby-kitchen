@@ -98,7 +98,7 @@ class IngredientList
 
         // Remove <p> tags that are added by Parsedown to list elements as soon
         // as they contain spans.
-        $html = preg_replace('/(<li class="ingredient">)\s*<p>(.*)<\/p>\s*(<\/li>)/siU', '$1$2$3', $html);
+        $html = preg_replace('/(<li class="ingredient \[ p-ingredient \]" itemprop="recipeIngredient">)\s*<p>(.*)<\/p>\s*(<\/li>)/siU', '$1$2$3', $html);
 
         return $html;
 
