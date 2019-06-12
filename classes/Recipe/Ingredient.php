@@ -31,7 +31,7 @@ class Ingredient
 
         preg_match('/^
             (?:-\s)? # Optional list item\/ingredient indicator prefix
-            ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.\-–—\/' . Chars::REGEX_SPACES . ']+))? # Prefix + Amount
+            ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.][½⅓⅔¼¾\d,.\-–—\/' . Chars::REGEX_SPACES . ']*))? # Prefix + Amount
             (?:((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
             (?:\s+(.*)?) # Item description (rest of line)
             $/ux',
@@ -50,6 +50,7 @@ class Ingredient
             }
             return new static($page, $amount, (string) $unit, (string) $item);
         } else {
+            $ingredient = preg_replace('/^[-*+]\s+/', '', $ingredient);
             return new static($page, null, null, $ingredient);
         }
     }
