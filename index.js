@@ -1,7 +1,7 @@
 panel.plugin("avoskitchen/kitchen", {
-  
+
   fields: {
-    
+
     // Based on the kirby-last-edited plugin by Dennis Kerzig
     // https://github.com/wottpal/kirby-last-edited/
     'kitchen-lastedited': {
@@ -30,7 +30,7 @@ panel.plugin("avoskitchen/kitchen", {
         <k-date-field v-if="['metadata', 'field'].includes(this.source)" v-model="this.source == 'field' ? value : modified" v-bind="$attrs" ref="input" icon="clock" disabled="true" label:="$t('lastedited')" />
       `,
     },
-  
+
     // Based on the Kirby 3 Janitor Plugin by Bruno Meilick
     // https://github.com/bnomei/kirby3-janitor
     'kitchen-ajaxbutton': {
@@ -77,7 +77,7 @@ panel.plugin("avoskitchen/kitchen", {
 
           this.label = this.progress.length > 0 ? this.progress : this.label + ' …';
           this.status = 'is-doing-job';
-          
+
           this.apiRequest(action).then((response) => {
               if (response.label !== undefined) {
                 that.label = response.label;
@@ -114,17 +114,17 @@ panel.plugin("avoskitchen/kitchen", {
 
 /**
  * Copyright (C) Amber Creative Lab Ltd
- * 
+ *
  * Version 1, 2 July 2018
- * 
+ *
  * Nucleo Icons
- * 
+ *
  * https://nucleoapp.com/
- * 
+ *
  * The Nucleo icons are copyrighted. Redistribution is not permitted. Use in
  * source and binary forms, with or without modification, is permitted only if
  * you possess a Nucleo icons license.
- * 
+ *
  * Please refer to the license for additional information https://nucleoapp.com/license
  */
 const sprite = document.querySelector('svg defs');
@@ -144,7 +144,7 @@ const icons  = `
 <path d="M14,0H2C1.4,0,1,0.4,1,1v14c0,0.6,0.4,1,1,1h12c0.6,0,1-0.4,1-1V1C15,0.4,14.6,0,14,0z M4,13 c-0.6,0-1-0.4-1-1c0-0.6,0.4-1,1-1s1,0.4,1,1C5,12.6,4.6,13,4,13z M4,9C3.4,9,3,8.6,3,8c0-0.6,0.4-1,1-1s1,0.4,1,1C5,8.6,4.6,9,4,9z M4,5C3.4,5,3,4.6,3,4c0-0.6,0.4-1,1-1s1,0.4,1,1C5,4.6,4.6,5,4,5z M13,7H7V4h6V7z"/>
 </symbol>
 <symbol viewBox="0 0 16 16" id="icon-kitchen-library">
-<path d="M6,12h2c0.6,0,1-0.4,1-1V3.5l3.2,7.9c0.2,0.5,0.8,0.8,1.3,0.5l1.9-0.8c0.5-0.2,0.8-0.8,0.5-1.3l-3.8-9.3 c-0.2-0.5-0.8-0.8-1.3-0.5L9,0.8c0,0,0,0,0,0C8.9,0.4,8.5,0,8,0H6C5.4,0,5,0.4,5,1v10C5,11.6,5.4,12,6,12z"></path> <path fill="#1d1d1b" d="M1,12h2c0.6,0,1-0.4,1-1V1c0-0.6-0.4-1-1-1H1C0.4,0,0,0.4,0,1v10C0,11.6,0.4,12,1,12z"></path>
+<path d="M6,12h2c0.6,0,1-0.4,1-1V3.5l3.2,7.9c0.2,0.5,0.8,0.8,1.3,0.5l1.9-0.8c0.5-0.2,0.8-0.8,0.5-1.3l-3.8-9.3 c-0.2-0.5-0.8-0.8-1.3-0.5L9,0.8c0,0,0,0,0,0C8.9,0.4,8.5,0,8,0H6C5.4,0,5,0.4,5,1v10C5,11.6,5.4,12,6,12z"></path> <path d="M1,12h2c0.6,0,1-0.4,1-1V1c0-0.6-0.4-1-1-1H1C0.4,0,0,0.4,0,1v10C0,11.6,0.4,12,1,12z"></path>
 <rect data-color="color-2" y="14" width="16" height="2"></rect>
 </symbol>
 <symbol viewBox="0 0 16 16" id="icon-kitchen-lock">
