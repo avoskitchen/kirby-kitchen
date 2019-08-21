@@ -35,8 +35,9 @@ class IngredientList
     public static function fromString(Page $page, string $text): IngredientList
     {
         $ingredients = [];
+        $text = str_replace(["\r\n", "\r"], "\n", $text);
 
-        foreach (explode("\n", str_replace(["\r\n", "\r"], "\n", $text)) as $i => $ingredient) {
+        foreach (explode("\n", $text) as $i => $ingredient) {
             if (strlen($ingredient) > 0 && $ingredient[0] === '-') {
                 $ingredients[] = Ingredient::fromString($page, $ingredient);
             } else {

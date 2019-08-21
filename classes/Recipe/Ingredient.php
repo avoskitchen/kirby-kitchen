@@ -57,12 +57,12 @@ class Ingredient
 
     protected function parseItem($text): array
     {
-        $tokens = preg_split('/({{[^}]+}})/s', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $tokens = preg_split('/({\{[^}]+}})/s', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
         $item = [];
 
         foreach ($tokens as $token) {
-            if (substr($token, 0, 1) === '{') {
+            if (substr($token, 0, 2) === '{{') {
                 // Create a sub-item
                 $token = trim($token, '{}' . Chars::SPACES);
                 $item[] = static::fromString($this->page, $token);
