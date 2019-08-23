@@ -57,7 +57,7 @@ class Ingredient
 
     protected function parseItem($text): array
     {
-        $tokens = preg_split('/({\{[^}]+}})/s', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
+        $tokens = preg_split('/({{[^}]+}})/s', $text, -1, PREG_SPLIT_DELIM_CAPTURE);
 
         $item = [];
 
