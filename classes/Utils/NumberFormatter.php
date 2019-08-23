@@ -124,7 +124,7 @@ class NumberFormatter
 
     public static function formatRange(float $min, float $max, string $unit = null): string
     {
-        return static::format($min) . "\u{00a0}–\u{00a0}" . static::format($max, $unit);
+        return static::format($min) . "\u{00a0}<span class=\"endash\">–</span>\u{00a0}" . static::format($max, $unit);
     }
 
     public static function fractionToFloat(string $fraction): float
