@@ -18,12 +18,12 @@ return [
     'html' => function ($tag) {
 
         $parentPage = $tag->parent()->parent();
-        $recipe =  $tag->attr('recipe');
+        $recipe = $tag->value;
 
         
-        if ($hashPos = strpos($recipe, '#') !== false) {
-            $hash = substr($recipe, $hashPos);
-            $recipe = substr($recipe, 0, $hashPos);
+        if (strstr($recipe, '#') !== false) {
+            list($recipe, $hash) = $map = explode('#', $recipe);
+            $hash = "#{$hash}";
         } else {
             $hash = '';
         }
@@ -34,7 +34,7 @@ return [
         } else {
             // just the slug
             $base = ($parentPage->template()->name() === 'recipes') ? $parentPage->id() : site()->children()->filterBy('template', 'recipes')->first()->id();
-            $target = $base . '/' . $tag->attr('recipe');
+            $target = $base . '/' . $recipe;
         }
 
         $link = url($target, $tag->attr('lang')) . $hash;
