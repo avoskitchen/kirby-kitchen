@@ -58,7 +58,7 @@
     <div class="recipe-meta">
       <p><strong>Kategorie:</strong> <?= $page->categoryTitle()->escape() ?></p>
 
-      <?php if(option('avoskitchen.kitchen.recipeTags') && $page->tags()->isNotEmpty()): ?>
+      <?php if($page->tags()->isNotEmpty()): ?>
         <p><strong>Tags:</strong> <?= implode(', ', $page->tags()->split()) ?></p>
       <?php endif ?>
 

@@ -16,7 +16,6 @@ Kirby::plugin('avoskitchen/kitchen', [
         'decimals' => 2,
         'decimalPoint' => '.',
         'thousandsSeparator' => ',',
-        'recipeTags' => false,
     ],
 
     'api' => [
@@ -78,26 +77,7 @@ Kirby::plugin('avoskitchen/kitchen', [
 
         'kitchen/sections/files' => __DIR__ . '/blueprints/sections/files.yml',
         'kitchen/sections/recipe-content' => __DIR__ . '/blueprints/sections/recipe-content.yml',
-        'kitchen/sections/recipe-meta' => (function () {
-            // This blueprint is created dynamically based on plugin settings.
-            $fields = [];
-
-            $fields['cover'] = 'kitchen/fields/cover';
-
-            $fields['category'] = 'kitchen/fields/category';
-            $fields['cuisines'] = 'kitchen/fields/cuisines';
-
-            if (option('avoskitchen.kitchen.recipeTags', false)) { // plugin defaults are not loaded at this point yet, so default value must be explixitely set.
-                $fields['tags'] = 'kitchen/fields/tags';
-            }
-
-            $fields['lastEdited'] = 'kitchen/fields/lastedited';
-
-            return [
-                'type' => 'fields',
-                'fields' => $fields,
-            ];
-        })(),
+        'kitchen/sections/recipe-meta' => __DIR__ . '/blueprints/sections/recipe-meta.yml',
     ],
 
     'fields' => [

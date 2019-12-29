@@ -1,0 +1,7 @@
+type: fields
+fields:
+  cover: kitchen/fields/cover
+  category: kitchen/fields/category
+  cuisines: kitchen/fields/cuisines
+  tags: kitchen/fields/tags
+  lastEdited: kitchen/fields/lastedited
