@@ -32,7 +32,6 @@ The plugin provides a set of templates that can be used as a starting point for 
 | decimals | int | `2` | Sets the number of decimals to be shown in the ingredients list, if odd numbers appear e.g. through changing the recipe yield. |
 | decimalPoint | string | `'.'` | Sets the decimal point for ingredient amounts. Change this according to the language of your site. |
 | thousandsSeparator | string | `','` | Sets the thousands separator for ingredient amounts. Change this according to the language of your site. |
-| privateRecipes | bool | `true` | Enable/disable the *private recipes function* of the plugin. If enabled, you can create recipes that appear only to logged-in users on your site, but are inaccessible to anonymous visitors.
 | recipeTags | bool | `false` | Enable, if you want a separate tags field to appear on the recipes editing screen in the panel. Tags can be used to group recipes or for feeding your search function with additional info. |
 
 ## KirbyTags

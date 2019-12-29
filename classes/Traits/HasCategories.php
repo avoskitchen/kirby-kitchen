@@ -12,12 +12,8 @@ use Kirby\Toolkit\Collection;
  */
 trait HasCategories
 {
-    use HasItems;
-
     protected static $allCategoryCache = null;
     protected static $nonEmptyCategoryCache = null;
-
-    protected $hasPrivateItems = false;
 
     /**
      * Returns a list of all defined categories.
@@ -91,10 +87,5 @@ trait HasCategories
         }
 
         return new Collection($index, []);
-    }
-
-    public function hasPrivateItems(): bool
-    {
-        return $this->hasPrivateItems;
     }
 }

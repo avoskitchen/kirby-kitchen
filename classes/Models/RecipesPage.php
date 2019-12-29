@@ -17,7 +17,6 @@ class RecipesPage extends Page
     public function __construct(array $props)
     {
         $this->setProperties($props);
-        $this->hasPrivateItems = option('avoskitchen.kitchen.privateRecipes');
     }
 
     public function latest(int $limit = 0, bool $unlisted = false): Collection {
@@ -26,16 +25,6 @@ class RecipesPage extends Page
         
         if ($unlisted === false) {
             $items = $items->listed();
-        }
-
-        if ($this->hasPrivateItems()) {
-            // Filter out private items, if user is not logged-in
-            $user = $this->kirby()->user();
-            if ($user === null) {
-                $items = $items->filter(function ($item) {
-                    return $item->isPrivate() === false;
-                });
-            }
         }
 
         $items = $items->sortBy('created', 'desc');
