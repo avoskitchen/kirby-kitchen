@@ -127,7 +127,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                         throw new Exception('Your site can only contain one knowledge base page. Please delete the page "' . $knowledgePages->first()->title() . '" before creating a new knowledge base page.');
                     }
 
-                    if ($parent->parent() !== null) {
+                    if ($page->parent() !== null) {
                         throw new Exception('A knowledge base page can only be created at the top-level of your site.');
                     }
                     break;
