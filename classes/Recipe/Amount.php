@@ -60,7 +60,7 @@ class Amount
             if (strstr($fraction, '/')) {
                 list($nom, $dnom) = explode('/', $fraction);
                 $result += (float) ($nom / $dnom);
-            } else if ($val = NumberFormatter::fractionToFloat($fraction)) {
+            } else if ($val = NumberFormatter::instance()->fractionToFloat($fraction)) {
                 $result += $val;
             }
 
@@ -90,6 +90,7 @@ class Amount
     public function format(float $yieldFactor = 1): string
     {
         $prefix = $this->prefix !== null ? "{$this->prefix} " : '';
+        $formatter = NumberFormatter::instance();
 
         switch ($this->type) {
             case static::TYPE_UNKNOWN:
@@ -99,11 +100,11 @@ class Amount
 
             case static::TYPE_RANGE:
                 // Range (e.g. 10 - 20 g)
-                return trim($prefix . NumberFormatter::formatRange($yieldFactor * $this->min, $yieldFactor * $this->max, $this->unit), Chars::SPACES);
+                return trim($prefix . $formatter->formatRange($yieldFactor * $this->min, $yieldFactor * $this->max, $this->unit), Chars::SPACES);
 
             default:
                 // Single numeric amount (10 g)
-                return trim($prefix . NumberFormatter::format($yieldFactor * $this->min, $this->unit));
+                return trim($prefix . $formatter->format($yieldFactor * $this->min, $this->unit));
         }
     }
 

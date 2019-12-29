@@ -8,13 +8,16 @@ namespace AvosKitchen\Kitchen\Utils;
  */
 class NumberFormatter
 {
-    protected static $decimalPoint = ',';
-    protected static $decimals  = 2;
-    protected static $fractions = [];
-    protected static $thousandsSeparator = ',';
-    protected static $useFractions = true;
+    protected static $instance;
 
-    public static $fractionEquivalents = [
+    protected $decimalPoint = ',';
+    protected $decimals  = 2;
+    protected $fractions = [];
+    protected $thousandsSeparator = ',';
+    protected $useFractions = true;
+    protected $isInit = false;
+
+    public $fractionEquivalents = [
         '½' => 1 / 2,
         '⅓' => 1 / 3,
         '⅔' => 2 / 3,
@@ -22,44 +25,48 @@ class NumberFormatter
         '¾' => 3 / 4,
     ];
 
-    public static function initSettings(): void
+    protected function __construct()
     {
-        static::$decimalPoint = option('avoskitchen.kitchen.decimalPoint', '.');
-        static::$decimals = option('avoskitchen.kitchen.decimals', 2);
-        static::$thousandsSeparator = option('avoskitchen.kitchen.thousandsSeparator', ',');
-        static::$useFractions = option('avoskitchen.kitchen.fractions', true);
+        $this->decimalPoint       = option('avoskitchen.kitchen.decimalPoint', '.');
+        $this->decimals           = option('avoskitchen.kitchen.decimals', 2);
+        $this->thousandsSeparator = option('avoskitchen.kitchen.thousandsSeparator', ',');
+        $this->useFractions       = option('avoskitchen.kitchen.fractions', true);
 
-        static::$fractions = [
+        $this->fractions = [
             // static::getFractionKey(1 / 6) => '&#8537;',
             // static::getFractionKey(1 / 5) => '&#8533;',
-            static::getFractionKey(1 / 4) => '&#188;',
-            static::getFractionKey(1 / 3) => '&#8531;',
+            $this->getFractionKey(1 / 4) => '&#188;',
+            $this->getFractionKey(1 / 3) => '&#8531;',
             // static::getFractionKey(2 / 5) => '&#8534;',
-            static::getFractionKey(1 / 2) => '&#189;',
+            $this->getFractionKey(1 / 2) => '&#189;',
             // static::getFractionKey(3 / 5) => '&#8535;',
-            static::getFractionKey(2 / 3) => '&#8532;',
-            static::getFractionKey(3 / 4) => '&#190;',
+            $this->getFractionKey(2 / 3) => '&#8532;',
+            $this->getFractionKey(3 / 4) => '&#190;',
             // static::getFractionKey(4 / 5) => '&#8536;',
             // static::getFractionKey(5 / 6) => '&#8538;',
             // static::getFractionKey(1 / 8) => '&#8539;',
             // static::getFractionKey(3 / 8) => '&#8540;',
             // static::getFractionKey(5 / 8) => '&#8541;',
             // static::getFractionKey(7 / 8) => '&#8542;',
-
         ];
     }
 
-    protected static function getFractionKey(float $fraction): string
+    public static function instance(): NumberFormatter
     {
-        return rtrim(number_format($fraction, static::$decimals, '.', ''), '0');
+        return static::$instance ?? (static::$instance = new static());
     }
 
-    public static function toFraction(float $number): string
+    protected function getFractionKey(float $fraction): string
     {
-        $key = static::getFractionKey($number);
+        return rtrim(number_format($fraction, $this->decimals, '.', ''), '0');
+    }
 
-        if (isset(static::$fractions[$key])) {
-            return static::$fractions[$key];
+    public function toFraction(float $number): string
+    {
+        $key = $this->getFractionKey($number);
+
+        if (isset($this->fractions[$key])) {
+            return $this->fractions[$key];
         }
 
         $parts = explode('.', $key);
@@ -67,25 +74,23 @@ class NumberFormatter
         if(sizeof($parts) === 2) {
             $decimals = '0.' . $parts[1];
 
-            if (isset(static::$fractions[$decimals])) {
-                return $parts[0] . static::$fractions[$decimals];
+            if (isset($this->fractions[$decimals])) {
+                return $parts[0] . $this->fractions[$decimals];
             }
         }
 
         return (string) $number;
     }
 
-    protected static function formatValue(float $number): string
+    protected function formatValue(float $number): string
     {
-        $number = number_format($number, static::$decimals, static::$decimalPoint, static::$thousandsSeparator);
-        $number = rtrim(rtrim($number, '0'), static::$decimalPoint); // remove trailing zeroes and comma
+        $number = number_format($number, $this->decimals, $this->decimalPoint, $this->thousandsSeparator);
+        $number = rtrim(rtrim($number, '0'), $this->decimalPoint); // remove trailing zeroes and comma
         return $number;
     }
 
-    public static function format(float $amount, string $unit = null): string
-    {
-        $aa = $amount;
-        
+    public function format(float $amount, string $unit = null): string
+    { 
         if ($unit === 'ml' && $amount >= 1000) {
             $amount /= 1000;
             $unit = 'l';
@@ -104,15 +109,15 @@ class NumberFormatter
         }
 
         // Convert to fraction if enabled in config.
-        if (static::$useFractions === true) {
-            $fraction = static::toFraction($amount);
+        if ($this->useFractions === true) {
+            $fraction = $this->toFraction($amount);
             if ($fraction != (string) $amount) {
                 $amount = $fraction;
             } else {
-                $amount = static::formatValue($amount);
+                $amount = $this->formatValue($amount);
             }
         } else {
-            $amount = static::formatValue($amount);
+            $amount = $this->formatValue($amount);
         }
 
         if (!empty($unit)) {
@@ -122,15 +127,15 @@ class NumberFormatter
         return "{$amount}{$unit}";
     }
 
-    public static function formatRange(float $min, float $max, string $unit = null): string
+    public function formatRange(float $min, float $max, string $unit = null): string
     {
-        return static::format($min) . "\u{00a0}<span class=\"endash\">–</span>\u{00a0}" . static::format($max, $unit);
+        return $this->format($min) . "\u{00a0}<span class=\"endash\">–</span>\u{00a0}" . $this->format($max, $unit);
     }
 
-    public static function fractionToFloat(string $fraction): float
+    public function fractionToFloat(string $fraction): float
     {
-        if (isset(static::$fractionEquivalents[$fraction])) {
-            return static::$fractionEquivalents[$fraction];
+        if (isset($this->fractionEquivalents[$fraction])) {
+            return $this->fractionEquivalents[$fraction];
         } else if ($parts = explode('/', $fraction) && sizeof($parts) > 0) {
             return (float) ((int) $parts[0] / (int) $parts[0]);
         } else {

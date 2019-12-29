@@ -3,7 +3,6 @@
 @include_once __DIR__ . '/vendor/autoload.php';
 
 use AvosKitchen\Kitchen\Api;
-use AvosKitchen\Kitchen\Utils\NumberFormatter;
 use Kirby\Cms\App as Kirby; // Satisfy linter
 use Kirby\Cms\PluginAssets;
 
@@ -29,21 +28,21 @@ Kirby::plugin('avoskitchen/kitchen', [
         ],
     ],
 
-    'routes' => [
-        [
-            // Fix to allow mp3 files as plugin assets, which is currently not
-            // supported by the Kirby core.
-            'pattern' => 'media/plugins/(avoskitchen)/(kitchen)/(:all).(mp3)',
-            'env'     => 'media',
-            'action'  => function (string $provider, string $pluginName, string $filename, string $extension) use ($kirby) {
-                if ($url = PluginAssets::resolve($provider . '/' . $pluginName, $filename . '.' . $extension)) {
-                    return $kirby
-                        ->response()
-                        ->redirect($url, 307);
-                }
-            }
-        ],
-    ],
+    // 'routes' => [
+    //     [
+    //         // Fix to allow mp3 files as plugin assets, which is currently not
+    //         // supported by the Kirby core.
+    //         'pattern' => 'media/plugins/(avoskitchen)/(kitchen)/(:all).(mp3)',
+    //         'env'     => 'media',
+    //         'action'  => function (string $provider, string $pluginName, string $filename, string $extension) use ($kirby) {
+    //             if ($url = PluginAssets::resolve($provider . '/' . $pluginName, $filename . '.' . $extension)) {
+    //                 return $kirby
+    //                     ->response()
+    //                     ->redirect($url, 307);
+    //             }
+    //         }
+    //     ],
+    // ],
 
     'blueprints' => [
 
@@ -175,7 +174,7 @@ Kirby::plugin('avoskitchen/kitchen', [
         'recipe' => require __DIR__ . '/tags/recipe.php',
         'recipes-gallery' => require __DIR__ . '/tags/recipes-gallery.php',
         'term' => require __DIR__ . '/tags/term.php',
-        'timer' => require __DIR__ . '/tags/timer.php',
+        // 'timer' => require __DIR__ . '/tags/timer.php',
     ],
 
     'templates' => [
@@ -185,5 +184,3 @@ Kirby::plugin('avoskitchen/kitchen', [
         'term' => __DIR__ . '/templates/term.php',
     ],
 ]);
-
-NumberFormatter::initSettings();
