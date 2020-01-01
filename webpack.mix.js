@@ -1,30 +1,20 @@
-const mix               = require('laravel-mix');
-const glob              = require('glob');
+const mix = require('laravel-mix');
 
 mix.js('src/js/kitchen.js', 'js');
-
-const sassSettings = {
-  precision: 10,
-};
-
-mix.sass('src/scss/kitchen.scss', 'css', sassSettings);
+mix.sass('src/scss/kitchen.scss', 'css');
 
 mix.setPublicPath('assets');
 mix.setResourceRoot('/assets/');
 
-// mix.copyDirectory('src/images', 'assets/images');
-mix.copyDirectory('src/sounds', 'assets/sounds');
-
 mix.disableNotifications();
-
-mix.options({
-  autoprefixer: false,
-});
 
 mix.webpackConfig({
   output: {
     publicPath: '/assets/',
     chunkFilename: 'js/[name].bundle.js?v=[chunkhash:8]',
+  },
+  watchOptions: {
+    ignored: /node_modules/,
   },
   stats: {
     assets: false,

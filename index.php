@@ -28,22 +28,6 @@ Kirby::plugin('avoskitchen/kitchen', [
         ],
     ],
 
-    // 'routes' => [
-    //     [
-    //         // Fix to allow mp3 files as plugin assets, which is currently not
-    //         // supported by the Kirby core.
-    //         'pattern' => 'media/plugins/(avoskitchen)/(kitchen)/(:all).(mp3)',
-    //         'env'     => 'media',
-    //         'action'  => function (string $provider, string $pluginName, string $filename, string $extension) use ($kirby) {
-    //             if ($url = PluginAssets::resolve($provider . '/' . $pluginName, $filename . '.' . $extension)) {
-    //                 return $kirby
-    //                     ->response()
-    //                     ->redirect($url, 307);
-    //             }
-    //         }
-    //     ],
-    // ],
-
     'blueprints' => [
 
         # Fields
@@ -174,7 +158,6 @@ Kirby::plugin('avoskitchen/kitchen', [
         'recipe' => require __DIR__ . '/tags/recipe.php',
         'recipes-gallery' => require __DIR__ . '/tags/recipes-gallery.php',
         'term' => require __DIR__ . '/tags/term.php',
-        // 'timer' => require __DIR__ . '/tags/timer.php',
     ],
 
     'templates' => [
