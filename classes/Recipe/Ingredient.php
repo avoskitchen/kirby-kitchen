@@ -124,7 +124,7 @@ class Ingredient
 
     public function html(float $yieldFactor = 1): string
     {
-        $template = '<li class="ingredient [ p-ingredient ]" itemprop="recipeIngredient" markdown="1"><span class="ingredient-amount">{amount}</span> <span class="ingredient-item">{item}</span></li>';
+        $template = '<li class="ingredient" markdown="1"><span class="ingredient-amount">{amount}</span> <span class="ingredient-item">{item}</span></li>';
         return $this->format($yieldFactor, $template);
     }
 
