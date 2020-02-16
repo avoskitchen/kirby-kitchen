@@ -54,9 +54,12 @@ class IngredientList
             return '';
         }
 
+        $ingredientClass      = option('avoskitchen.kitchen.ingredientClass', 'ingredient');
+        $ingredientGroupClass = option('avoskitchen.kitchen.ingredientGroupClass', 'ingredient-group');
+
         $html = [];
 
-        $html[] = '<div class="ingredient-group" markdown="1">';
+        $html[] = '<div class="' . $ingredientGroupClass . '" markdown="1">';
         
         $lastItem = null;
 
@@ -75,7 +78,7 @@ class IngredientList
                 
                 if ($lastItem !== null && strlen($item) > 0 && $item[0] === '#') {
                     $html[] = '</div>';
-                    $html[] = '<div class="ingredient-group" markdown="1">';
+                    $html[] = '<div class="' . $ingredientGroupClass . '" markdown="1">';
                 }
 
                 $html[] = (new Ingredient($this->page, null, null, $item))->format($yieldFactor);
@@ -99,7 +102,7 @@ class IngredientList
 
         // Remove <p> tags that are added by Parsedown to list elements as soon
         // as they contain spans.
-        $html = preg_replace('/(<li class="ingredient">)\s*<p>(.*)<\/p>\s*(<\/li>)/siU', '$1$2$3', $html);
+        $html = preg_replace('/(<li class="' . preg_quote($ingredientClass, '/') . '">)\s*<p>(.*)<\/p>\s*(<\/li>)/siU', '$1$2$3', $html);
 
         return $html;
 

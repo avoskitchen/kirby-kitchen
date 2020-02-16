@@ -2,7 +2,7 @@
 
 <h1><?= $page->title()->escape() ?></h1>
   
-<div class="recipes">
+<div class="recipes mt1">
   <?php foreach ($page->getItemsGroupedByCategory() as $category): ?>
     <div class="recipes-category">
       <h2><?= $category->title()->escape() ?></h2>

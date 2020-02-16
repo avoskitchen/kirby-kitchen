@@ -15,6 +15,10 @@ Kirby::plugin('avoskitchen/kitchen', [
         'decimals' => 2,
         'decimalPoint' => '.',
         'thousandsSeparator' => ',',
+        'ingredientClass' => 'ingredient',
+        'ingredientGroupClass' => 'ingredient-group',
+        'ingredientAmountClass' => 'ingredient-amount',
+        'ingredientItemClass' => 'ingredient-item',
     ],
 
     'api' => [
