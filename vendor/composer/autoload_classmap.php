@@ -18,7 +18,6 @@ return array(
     'AvosKitchen\\Kitchen\\Recipe\\Numerus' => $baseDir . '/classes/Recipe/Numerus.php',
     'AvosKitchen\\Kitchen\\Traits\\HasCategories' => $baseDir . '/classes/Traits/HasCategories.php',
     'AvosKitchen\\Kitchen\\Traits\\HasCategoryField' => $baseDir . '/classes/Traits/HasCategoryField.php',
-    'AvosKitchen\\Kitchen\\Traits\\HasItems' => $baseDir . '/classes/Traits/HasItems.php',
     'AvosKitchen\\Kitchen\\Traits\\HasUnits' => $baseDir . '/classes/Traits/HasUnits.php',
     'AvosKitchen\\Kitchen\\Utils\\Chars' => $baseDir . '/classes/Utils/Chars.php',
     'AvosKitchen\\Kitchen\\Utils\\NumberFormatter' => $baseDir . '/classes/Utils/NumberFormatter.php',

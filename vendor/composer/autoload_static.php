@@ -41,7 +41,6 @@ class ComposerStaticInit7d51d8d2084435e24c4f711dfdf9ebe4
         'AvosKitchen\\Kitchen\\Recipe\\Numerus' => __DIR__ . '/../..' . '/classes/Recipe/Numerus.php',
         'AvosKitchen\\Kitchen\\Traits\\HasCategories' => __DIR__ . '/../..' . '/classes/Traits/HasCategories.php',
         'AvosKitchen\\Kitchen\\Traits\\HasCategoryField' => __DIR__ . '/../..' . '/classes/Traits/HasCategoryField.php',
-        'AvosKitchen\\Kitchen\\Traits\\HasItems' => __DIR__ . '/../..' . '/classes/Traits/HasItems.php',
         'AvosKitchen\\Kitchen\\Traits\\HasUnits' => __DIR__ . '/../..' . '/classes/Traits/HasUnits.php',
         'AvosKitchen\\Kitchen\\Utils\\Chars' => __DIR__ . '/../..' . '/classes/Utils/Chars.php',
         'AvosKitchen\\Kitchen\\Utils\\NumberFormatter' => __DIR__ . '/../..' . '/classes/Utils/NumberFormatter.php',
