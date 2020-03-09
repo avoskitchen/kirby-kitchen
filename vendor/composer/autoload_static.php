@@ -31,7 +31,6 @@ class ComposerStaticInit7d51d8d2084435e24c4f711dfdf9ebe4
     public static $classMap = array (
         'AvosKitchen\\Kitchen\\Api' => __DIR__ . '/../..' . '/classes/Api.php',
         'AvosKitchen\\Kitchen\\Category' => __DIR__ . '/../..' . '/classes/Category.php',
-        'AvosKitchen\\Kitchen\\Defaults' => __DIR__ . '/../..' . '/classes/Defaults.php',
         'AvosKitchen\\Kitchen\\Models\\KnowledgePage' => __DIR__ . '/../..' . '/classes/Models/KnowledgePage.php',
         'AvosKitchen\\Kitchen\\Models\\RecipePage' => __DIR__ . '/../..' . '/classes/Models/RecipePage.php',
         'AvosKitchen\\Kitchen\\Models\\RecipesPage' => __DIR__ . '/../..' . '/classes/Models/RecipesPage.php',
@@ -42,6 +41,7 @@ class ComposerStaticInit7d51d8d2084435e24c4f711dfdf9ebe4
         'AvosKitchen\\Kitchen\\Recipe\\Numerus' => __DIR__ . '/../..' . '/classes/Recipe/Numerus.php',
         'AvosKitchen\\Kitchen\\Traits\\HasCategories' => __DIR__ . '/../..' . '/classes/Traits/HasCategories.php',
         'AvosKitchen\\Kitchen\\Traits\\HasCategoryField' => __DIR__ . '/../..' . '/classes/Traits/HasCategoryField.php',
+        'AvosKitchen\\Kitchen\\Traits\\HasItems' => __DIR__ . '/../..' . '/classes/Traits/HasItems.php',
         'AvosKitchen\\Kitchen\\Traits\\HasUnits' => __DIR__ . '/../..' . '/classes/Traits/HasUnits.php',
         'AvosKitchen\\Kitchen\\Utils\\Chars' => __DIR__ . '/../..' . '/classes/Utils/Chars.php',
         'AvosKitchen\\Kitchen\\Utils\\NumberFormatter' => __DIR__ . '/../..' . '/classes/Utils/NumberFormatter.php',

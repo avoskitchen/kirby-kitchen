@@ -8,7 +8,6 @@ $baseDir = dirname($vendorDir);
 return array(
     'AvosKitchen\\Kitchen\\Api' => $baseDir . '/classes/Api.php',
     'AvosKitchen\\Kitchen\\Category' => $baseDir . '/classes/Category.php',
-    'AvosKitchen\\Kitchen\\Defaults' => $baseDir . '/classes/Defaults.php',
     'AvosKitchen\\Kitchen\\Models\\KnowledgePage' => $baseDir . '/classes/Models/KnowledgePage.php',
     'AvosKitchen\\Kitchen\\Models\\RecipePage' => $baseDir . '/classes/Models/RecipePage.php',
     'AvosKitchen\\Kitchen\\Models\\RecipesPage' => $baseDir . '/classes/Models/RecipesPage.php',
@@ -19,6 +18,7 @@ return array(
     'AvosKitchen\\Kitchen\\Recipe\\Numerus' => $baseDir . '/classes/Recipe/Numerus.php',
     'AvosKitchen\\Kitchen\\Traits\\HasCategories' => $baseDir . '/classes/Traits/HasCategories.php',
     'AvosKitchen\\Kitchen\\Traits\\HasCategoryField' => $baseDir . '/classes/Traits/HasCategoryField.php',
+    'AvosKitchen\\Kitchen\\Traits\\HasItems' => $baseDir . '/classes/Traits/HasItems.php',
     'AvosKitchen\\Kitchen\\Traits\\HasUnits' => $baseDir . '/classes/Traits/HasUnits.php',
     'AvosKitchen\\Kitchen\\Utils\\Chars' => $baseDir . '/classes/Utils/Chars.php',
     'AvosKitchen\\Kitchen\\Utils\\NumberFormatter' => $baseDir . '/classes/Utils/NumberFormatter.php',

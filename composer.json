@@ -1,25 +1,25 @@
 {
-    "name": "avoskitchen/kitchen",
-    "type": "kirby-plugin",
-    "version": "0.1.0",
-    "description": "",
-    "license": "MIT",
-    "autoload": {
-      "psr-4": {
-          "AvosKitchen\\Kitchen\\": "classes/"
-      }
-    },
-    "authors": [
-        {
-            "name": "Fabian Michael",
-            "email": "hallo@fabianmichael.de"
-        }
-    ],
-    "require": {
-      "php": ">=7.2",
-      "getkirby/composer-installer": "^1.1"
-    },
-    "config": {
-      "optimize-autoloader": true
+  "name": "avoskitchen/kitchen",
+  "type": "kirby-plugin",
+  "version": "0.1.0",
+  "description": "",
+  "license": "MIT",
+  "autoload": {
+    "psr-4": {
+      "AvosKitchen\\Kitchen\\": "classes/"
     }
+  },
+  "authors": [
+    {
+      "name": "Fabian Michael",
+      "email": "hallo@fabianmichael.de"
+    }
+  ],
+  "require": {
+    "php": ">=7.3",
+    "getkirby/composer-installer": "^1.1"
+  },
+  "config": {
+    "optimize-autoloader": true
+  }
 }
