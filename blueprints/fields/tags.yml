@@ -5,3 +5,5 @@ type: tags
 help:
   en: Tags can be utilized by the search function for assisting the finding of related or similiar recipes.
   de: Schlagwörter können von der Suchfunktion ausgwertet und beim Finden von verwandten oder ähnlichen Rezepten helfen.
+options: query
+query: page.parent.childrenAndDrafts.template("recipe").pluck("tags", ",", true)
