@@ -60,16 +60,6 @@ Inserts a link to a term page. This could be extended with a tooltip (like e.g. 
 | class | string | false | Additional CSS classes to add to the link element. |
 | title | string | false | Optional title attribute. |
 
-### `(timer: …)`
-
-Inserts a kitchen timer as a link element. 
- 
-| Name | Type | Required | Description |
-|:-----|:-----|:---------|:------------|
-| timer | string | true | Sets the duration of the timer, in hourd, minutes and seconds, e.g. `30m15s` or `30s`. |
-| text | string | false | Text to be shown on the timer button. |
-| title | string | false | Text to be shown in the timer popup. This is helpful if a recipe has multiple timers. ||
-
 ## Make it Yours
 
 The Kitchen plugin comes with its own set of default templates, located in `site/plugins/kitchen/templates`. You can override these defaults by placing template files with the same name into `site/templates/`:
@@ -103,10 +93,6 @@ This plugin uses code from the following Kirby 3 plugins:
 
 - [Kirby 3 Janitor](https://github.com/bnomei/kirby3-janitor) by  Bruno Meilick.
 - [Kirby Last Edited]( https://github.com/wottpal/kirby-last-edited/) by Dennis Kerzig.
-
-Furthermore, the following 3rd-party libraries are included:
-
-- [easytimer.js](https://github.com/albert-gonzalez/easytimer.js) by Albert González / MIT License
 
 ## License
 
