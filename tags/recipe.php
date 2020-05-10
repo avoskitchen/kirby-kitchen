@@ -1,8 +1,8 @@
 <?php
 
+use Kirby\Cms\Url;
 use Kirby\Toolkit\Html;
 use Kirby\Toolkit\Str;
-use Kirby\Toolkit\Url;
 
 /**
  * Inserts a link to a recipe page into an article.
@@ -45,7 +45,7 @@ return [
             if ($targetPage) {
                 $text = $targetPage->title();
             } else {
-                $text = '[⚠️ Missing page: ' . $link . ']';
+                $text = '⚠️ ' . pathinfo($link, PATHINFO_FILENAME) . '';
             }
         }
 

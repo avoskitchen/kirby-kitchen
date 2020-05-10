@@ -3,6 +3,11 @@
 /**
  * Creates a link to a term in the knowledge base.
  */
+
+use Kirby\Cms\Html;
+use Kirby\Cms\Url;
+use Kirby\Toolkit\Str;
+
 return [
     'attr' => [
         'text',
@@ -32,7 +37,7 @@ return [
             if ($targetPage) {
                 $text = $targetPage->title();
             } else {
-                $text = "[⚠️ Missing term: {$term}]";
+                $text = '⚠️ ' . $term . '';
             }
         }
 
