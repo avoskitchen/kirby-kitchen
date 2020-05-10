@@ -22,7 +22,7 @@ The plugin provides a set of templates that can be used as a starting point for 
 
 - Kirby 3.3+
 - PHP 7.3+
-- Kirby’s [date handler](https://getkirby.com/docs/reference/options/date) has to be set to `strftime` in you config file.
+- Kirby’s [date handler](https://getkirby.com/docs/reference/options/date) has to be set to `strftime` in your `config.php` file.
 
 ## Available Options
 
