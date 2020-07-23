@@ -59,15 +59,15 @@ class IngredientList
 
         $html = [];
 
-        $html[] = '<div class="' . $ingredientGroupClass . '" markdown="1">';
-        
+        $html[] = '<div class="' . $ingredientGroupClass . '">';
+
         $lastItem = null;
 
         foreach ($this->items as $item) {
-            
+
             if ($item instanceof Ingredient) {
                 if ($lastItem !== static::ITEM_INGREDIENT) {
-                    $html[] = '<ul markdown="1">';
+                    $html[] = '<ul>';
                 }
                 $html[] = $item->html($yieldFactor);
                 $lastItem = static::ITEM_INGREDIENT;
@@ -75,14 +75,14 @@ class IngredientList
                 if ($lastItem === static::ITEM_INGREDIENT) {
                     $html[] = '</ul>';
                 }
-                
+
                 if ($lastItem !== null && strlen($item) > 0 && $item[0] === '#') {
                     $html[] = '</div>';
-                    $html[] = '<div class="' . $ingredientGroupClass . '" markdown="1">';
+                    $html[] = '<div class="' . $ingredientGroupClass . '">';
                 }
 
                 $html[] = (new Ingredient($this->page, null, null, $item))->format($yieldFactor);
-                
+
                 $lastItem = 'text';
             }
         }
