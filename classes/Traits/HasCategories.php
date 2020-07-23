@@ -41,13 +41,13 @@ trait HasCategories
             if($unlisted === false) {
                 $items = $items->listed();
             }
-            
+
             $keysArray = $items->pluck('category', null, true);
             $keysArray = array_flip(array_map(function($v) { return $v->value(); }, $keysArray));
-            
+
             static::$nonEmptyCategoryCache = array_intersect_key(static::$allCategoryCache, $keysArray);
         }
-        
+
         return static::$nonEmptyCategoryCache;
     }
 
@@ -66,7 +66,7 @@ trait HasCategories
         $index = [];
 
         if (!$items->count() === 0) {
-            return new Collection([], $this);
+            return new Collection([]);
         }
 
         foreach ($this->getCategories() as $slug => $title) {
@@ -86,6 +86,6 @@ trait HasCategories
             ]);
         }
 
-        return new Collection($index, []);
+        return new Collection($index);
     }
 }
