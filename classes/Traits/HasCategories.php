@@ -86,6 +86,6 @@ trait HasCategories
             ]);
         }
 
-        return new Collection($index, []);
+        return new Collection($index);
     }
 }
