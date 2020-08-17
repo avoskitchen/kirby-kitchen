@@ -22,40 +22,52 @@ return [
 
         
         if (strstr($recipe, '#') !== false) {
-            list($recipe, $hash) = $map = explode('#', $recipe);
+            list($recipe, $hash) = explode('#', $recipe);
             $hash = "#{$hash}";
         } else {
             $hash = '';
         }
 
-        if(strstr($recipe, '/')) {
+        if (strstr($recipe, '/') !== false) {
             // absolute path
-            $target = $recipe;
+            $path = $recipe;
+            $targetPage = $tag->site()->find($path);
         } else {
             // just the slug
-            $base = ($parentPage->template()->name() === 'recipes') ? $parentPage->id() : site()->children()->filterBy('template', 'recipes')->first()->id();
-            $target = $base . '/' . $recipe;
+            $base = ($parentPage->template()->name() === 'recipes')
+                ? $parentPage
+                : $tag->site()->children()->filterBy('template', 'recipes')->first();
+
+            $targetPage = $base->findPageOrDraft($recipe);
+            $path = "{$base->id()}/{$recipe}";
         }
 
-        $link = url($target, $tag->attr('lang')) . $hash;
+        $link = url($path, $tag->attr('lang')) . $hash;
         $text = $tag->attr('text');
 
         if (empty($text)) {
-            $targetPage = site()->find($target);
-            if ($targetPage) {
+            if ($targetPage !== null) {
                 $text = $targetPage->title();
             } else {
                 $text = '⚠️ ' . pathinfo($link, PATHINFO_FILENAME) . '';
             }
         }
 
-        if (Str::isURL($text)) {
-            $text = Url::short($text);
+        if ($targetPage !== null && $targetPage->isDraft() === true) {
+            if (kirby()->user() !== null) {
+                // Add some styling to link, that points to draft-page
+                // for logged-in users.
+                $style = 'background: repeating-linear-gradient(-45deg, rgba(209, 100, 100, .3), rgba(209, 100, 100, .3) 5px, transparent 5px, transparent 10px);';
+            } else {
+                // Don’t generate any link at all for normal visitors.
+                return $text;
+            }
         }
 
         return Html::a($link, $text, [
             'class' => $tag->attr('class'),
             'title' => $tag->attr('title'),
+            'style' => $style ?? null,
         ]);
 
     },
