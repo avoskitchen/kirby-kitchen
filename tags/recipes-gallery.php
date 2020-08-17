@@ -15,24 +15,29 @@ return [
     ],
     'html' => function ($tag) {
 
+        $site = $tag->site();
+        $user = $tag->kirby()->user();
         $parentPage = $tag->parent()->parent();
-        $recipesBase = ($parentPage->template()->name() === 'recipes') ? $parentPage->id() : site()->children()->filterBy('template', 'recipes')->first()->id();
-        $recipes = array_map('trim', explode(',',$tag->attr('recipes-gallery')));
-        $site = site();
 
+        $recipesBase = ($parentPage->template()->name() === 'recipes')
+            ? $parentPage
+            : $site->children()->filterBy('template', 'recipes')->first();
+
+        $recipes = array_map('trim', explode(',', $tag->attr('recipes-gallery')));
         $collection = [];
 
         foreach ($recipes as $recipe) {
+            $item = null;
 
-            if (strstr($recipe, '/')) {
+            if (strstr($recipe, '/') === true) {
                 // absolute path
-                $target = $recipe;
+                $item = $site->findPageOrDraft($recipe);
             } else {
                 // just the slug
-                $target = "{$recipesBase}/{$recipe}";
+                $item = $recipesBase->findPageOrDraft($recipe);
             }
 
-            if ($item = $site->find($target)) {
+            if ($item && ($user !== null || $item->isDraft() === false)) {
                 $collection[] = $item;
             }
         }
