@@ -90,16 +90,14 @@ class RecipePage extends Page
     {
         $yieldFactor = $this->currentYield() / $this->defaultYield();
 
-        switch ($this->type()->toString()) {
-            case 'pie':
-                $areaDefault = pow($this->defaultDiameter() / 2, 2) * pi();
-                $areaConverted = pow($this->currentDiameter() / 2, 2) * pi();
-                $areaFactor = $areaConverted / $areaDefault;
-                return $yieldFactor * $areaFactor;
-            default:
-                return $yieldFactor;
-                break;
+        if ($this->isType('pie') === true) {
+            $areaDefault = pow($this->defaultDiameter() / 2, 2) * pi();
+            $areaConverted = pow($this->currentDiameter() / 2, 2) * pi();
+            $areaFactor = $areaConverted / $areaDefault;
+            return $yieldFactor * $areaFactor;
         }
+        
+        return $yieldFactor;
     }
 
     public function yieldFormatted(): string
