@@ -27,12 +27,11 @@ fields:
   type:
     label: Rezepttyp
     type: select
-    default: ""
+    default: default
     options:
       default: Standard
       pie: Torte
     width: 1/4
-    required: true
   diameter:
     label: Durchmesser
     type: number
