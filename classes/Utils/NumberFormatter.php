@@ -113,6 +113,11 @@ class NumberFormatter
             $amount = round($amount, 0);
         }
 
+        if (in_array($unit, ['EL', 'TL', 'Prise', 'Prisen']) === true) {
+            // No need for decimal for small units
+            $amount = round($amount, 1);
+        }
+
         // Smooth out values
         $floor = floor($amount);
         $decimals = $amount - $floor;
