@@ -24,6 +24,45 @@ fields:
     type: text
     width: 1/3
     default: Portionen
+  type:
+    label: Rezepttyp
+    type: select
+    default: ""
+    options:
+      default: Standard
+      pie: Torte
+    width: 1/4
+    required: true
+  diameter:
+    label: Durchmesser
+    type: number
+    step: 1
+    min: 10
+    after: cm
+    width: 1/4
+    default: 26
+    when:
+      type: pie
+  diameterMin:
+    label: Durchmesser (min)
+    type: number
+    step: 1
+    after: cm
+    width: 1/4
+    placeholder: 10
+    when:
+      type: pie
+  diameterMax:
+    label: Durchmesser (min)
+    type: number
+    step: 1
+    after: cm
+    max: 40
+    placeholder: 40
+    width: 1/4
+    when:
+      type: pie
+
   ingredients:
     label:
       en: Ingredients

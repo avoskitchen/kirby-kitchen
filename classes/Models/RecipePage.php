@@ -13,11 +13,16 @@ class RecipePage extends Page
 {
     use HasCategoryField;
 
+    const DIAMETER_DEFAULT = 26; // cm
+    const DIAMETER_MIN = 10; // cm
+    const DIAMETER_MAX = 50; // cm
+
     protected static $cuisinesCache;
+    protected $typeCache;
 
     public function currentYield(): int
     {
-        if (isset($_GET['yield']) && $yield = intval($_GET['yield'])) {
+        if ($yield = (int) get('yield')) {
             return $yield;
         }
 
@@ -32,9 +37,69 @@ class RecipePage extends Page
         return 1;
     }
 
+    public function currentDiameter(): ?int
+    {
+        if ($this->isType('pie') === true) {
+            if ($diameter = (int) get('diameter')) {
+                return min($this->maxDiameter(), max($this->minDiameter(), (int) $diameter));
+            }
+
+            return $this->defaultDiameter();
+        }
+        
+        return null;
+    }
+
+    public function minDiameter(): ?int
+    {
+        if ($this->isType('pie') === true) {
+            return max(static::DIAMETER_MIN, $this->diameterMin()->or(static::DIAMETER_MIN)->toInt());
+        }
+
+        return null;
+    }
+
+    public function maxDiameter(): ?int
+    {
+        if ($this->isType('pie') === true) {
+            return min(static::DIAMETER_MAX, $this->diameterMax()->or(static::DIAMETER_MAX)->toInt());
+        }
+
+        return null;
+    }
+    
+    public function defaultDiameter(): ?int
+    {
+        if ($this->isType('pie') === true) {
+            return $this->diameter()->or(static::DIAMETER_DEFAULT)->toInt();
+        }
+        
+        return null;
+    }
+
+    public function isType(string $type = ''): bool
+    {
+        if ($this->typeCache === null) {
+            $this->typeCache = $this->content()->get('type')->toString();
+        }
+
+        return $this->typeCache === $type;
+    }
+
     public function yieldFactor(): float
     {
-        return $this->currentYield() / $this->defaultYield();
+        $yieldFactor = $this->currentYield() / $this->defaultYield();
+
+        switch ($this->type()->toString()) {
+            case 'pie':
+                $areaDefault = pow($this->defaultDiameter() / 2, 2) * pi();
+                $areaConverted = pow($this->currentDiameter() / 2, 2) * pi();
+                $areaFactor = $areaConverted / $areaDefault;
+                return $yieldFactor * $areaFactor;
+            default:
+                return $yieldFactor;
+                break;
+        }
     }
 
     public function yieldFormatted(): string
