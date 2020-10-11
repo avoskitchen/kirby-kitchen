@@ -22,7 +22,7 @@
       value="<?= $diameter ?>"
       id="diameter-input"
     >
-    cm
+    cm)
   <?php endif ?>
   <button type="submit">Aktualisieren</button>
   <?php if ($isDefaultYield): ?>
