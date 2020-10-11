@@ -41,7 +41,7 @@ class RecipePage extends Page
     {
         if ($this->isType('pie') === true) {
             if ($diameter = (int) get('diameter')) {
-                return min($this->maxDiameter(), max($this->minDiameter(), (int) $diameter));
+                return min($this->maxDiameter(), max($this->minDiameter(), $diameter));
             }
 
             return $this->defaultDiameter();
