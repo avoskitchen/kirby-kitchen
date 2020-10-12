@@ -108,6 +108,26 @@ class NumberFormatter
             $unit = 'TL';
         }
 
+        if (in_array($unit, ['g', 'ml']) === true) {
+            // No need for decimal for small units
+            $amount = round($amount, 0);
+        }
+
+        if (in_array($unit, ['EL', 'TL', 'Prise', 'Prisen']) === true) {
+            // No need for decimal for small units
+            $amount = round($amount, 1);
+        }
+
+        // Smooth out values
+        $floor = floor($amount);
+        $decimals = $amount - $floor;
+        foreach([.25, .5, .75, 1] as $frac) {
+            if (abs(($decimals - $frac) / $frac) < .125) {
+                $amount = $floor + $frac;
+                break;
+            }
+        }
+
         // Convert to fraction if enabled in config.
         if ($this->useFractions === true) {
             $fraction = $this->toFraction($amount);
@@ -136,10 +156,13 @@ class NumberFormatter
     {
         if (isset($this->fractionEquivalents[$fraction])) {
             return $this->fractionEquivalents[$fraction];
-        } else if ($parts = explode('/', $fraction) && sizeof($parts) > 0) {
-            return (float) ((int) $parts[0] / (int) $parts[0]);
-        } else {
-            return null;
         }
+        
+        $parts = explode('/', $fraction);
+        if (sizeof($parts) > 0) {
+            return (float) ((int) $parts[0] / (int) $parts[0]);
+        }
+
+        return null;
     }
 }
