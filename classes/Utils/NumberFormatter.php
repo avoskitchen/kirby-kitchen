@@ -90,7 +90,9 @@ class NumberFormatter
     }
 
     public function format(float $amount, string $unit = null): string
-    { 
+    {
+        $isFraction = in_array($amount, [0.25, 0.5, 0.75], true);
+
         if ($unit === 'ml' && $amount >= 1000) {
             $amount /= 1000;
             $unit = 'l';
@@ -103,7 +105,7 @@ class NumberFormatter
         } else if ($unit === 'TL' && $amount >= 3 && $amount != 4) {
             $amount /= 3;
             $unit = 'EL';
-        } else if ($unit === 'EL' && $amount < 1 && $amount !== 0.5) {
+        } else if ($unit === 'EL' && $amount < 1 && $isFraction === false) {
             $amount *= 3;
             $unit = 'TL';
         }
@@ -113,7 +115,7 @@ class NumberFormatter
             $amount = round($amount, 0);
         }
 
-        if (in_array($unit, ['EL', 'TL', 'Prise', 'Prisen']) === true) {
+        if (in_array($unit, ['EL', 'TL', 'Prise', 'Prisen']) === true && $isFraction === false) {
             // No need for decimal for small units
             $amount = round($amount, 1);
         }
