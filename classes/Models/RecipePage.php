@@ -170,6 +170,13 @@ class RecipePage extends Page
         return $this->cache['kitchen.ingredients'];
     }
 
+    public function ingredientsArray(): array
+    {
+        $ingredients = $this->content()->ingredients()->toString();
+        $ingredients = preg_replace('/<\!--(.*)-->/sU', '', $ingredients);
+        return IngredientList::fromString($this, $ingredients)->toArray($this->yieldFactor());
+    }
+
     public function instructionsFormatted(): Field
     {
         if (!isset($this->cache['kitchen.instructions'])) {
