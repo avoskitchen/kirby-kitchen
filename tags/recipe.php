@@ -54,7 +54,7 @@ return [
         }
 
         if ($targetPage !== null && $targetPage->isDraft() === true) {
-            if (kirby()->user() !== null) {
+            if (($user = kirby()->user()) && $user->id() !== 'nobody') {
                 // Add some styling to link, that points to draft-page
                 // for logged-in users.
                 $style = 'background: repeating-linear-gradient(-45deg, rgba(209, 100, 100, .3), rgba(209, 100, 100, .3) 5px, transparent 5px, transparent 10px);';

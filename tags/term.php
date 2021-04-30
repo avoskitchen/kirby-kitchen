@@ -16,7 +16,7 @@ return [
     ],
     'html' => function ($tag) {
 
-        $base = site()->children()->filterBy('template', 'knowledge')->first()->id();
+        $base = site()->children()->filterBy('template', 'knowledge')->first();
 
         $term = $tag->attr('term');
 
@@ -27,28 +27,35 @@ return [
             $hash = '';
         }
         
-        $target = "{$base}/{$term}";
+        $target = "{$base->id()}/{$term}";
+        $targetPage = $base->findPageOrDraft($term);
 
         $link = url($target, $tag->attr('lang')) . $hash;
         $text = $tag->attr('text');
 
         if (empty($text)) {
-            $targetPage = site()->find($target);
-            if ($targetPage) {
+            if ($targetPage !== null) {
                 $text = $targetPage->title();
             } else {
                 $text = '⚠️ ' . $term . '';
             }
         }
 
-        if (Str::isURL($text)) {
-            $text = Url::short($text);
+        if ($targetPage !== null && $targetPage->isDraft() === true) {
+            if (($user = kirby()->user()) && $user->id() !== 'nobody') {
+                // Add some styling to link, that points to draft-page
+                // for logged-in users.
+                $style = 'background: repeating-linear-gradient(-45deg, rgba(209, 100, 100, .3), rgba(209, 100, 100, .3) 5px, transparent 5px, transparent 10px);';
+            } else {
+                // Don’t generate any link at all for normal visitors.
+                return $text;
+            }
         }
 
-        return Html::a($link, $text, array(
+        return Html::a($link, $text, [
             'class' => $tag->attr('class'),
             'title' => $tag->attr('title'),
-        ));
+        ]);
 
     },
 ];
