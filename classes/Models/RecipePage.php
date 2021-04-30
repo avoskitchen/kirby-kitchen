@@ -8,6 +8,7 @@ use AvosKitchen\Kitchen\Traits\HasCategoryField;
 use Kirby\Cms\Field;
 use Kirby\Cms\Page;
 use Kirby\Cms\Collection;
+use Kirby\Toolkit\Str;
 
 class RecipePage extends Page
 {
@@ -100,7 +101,7 @@ class RecipePage extends Page
         return $yieldFactor;
     }
 
-    public function yieldFormatted(): string
+    public function yieldFormatted(string $output = 'html'): string
     {
         if ($this->yield()->isEmpty()) {
             return '';
@@ -121,11 +122,17 @@ class RecipePage extends Page
             $unit = '';
         }
 
-        return snippet('yield', [
+        $data = [
             'yield' => $currentYield,
             'unit' => $unit,
             'isDefaultYield' => $this->currentYield() !== $this->defaultYield(),
-        ], true);
+        ];
+
+        if ($output === 'text') {
+            return Str::template('{{ yield }} {{ unit }}', $data);
+        } else {
+            return snippet('yield', $data, true);
+        }
     }
 
     public function cuisinesFormatted()
@@ -161,6 +168,13 @@ class RecipePage extends Page
         }
 
         return $this->cache['kitchen.ingredients'];
+    }
+
+    public function ingredientsArray(): array
+    {
+        $ingredients = $this->content()->ingredients()->toString();
+        $ingredients = preg_replace('/<\!--(.*)-->/sU', '', $ingredients);
+        return IngredientList::fromString($this, $ingredients)->toArray($this->yieldFactor());
     }
 
     public function instructionsFormatted(): Field

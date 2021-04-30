@@ -3,6 +3,7 @@
 namespace AvosKitchen\Kitchen\Recipe;
 
 use Kirby\Cms\Page;
+use Kirby\Toolkit\Html;
 
 /**
  * A list of ingredients for cooking recipes, consisting of
@@ -48,6 +49,27 @@ class IngredientList
         return new static($page, 1, 1, $ingredients);
     }
 
+    public function toArray(float $yieldFactor = 1): array
+    {
+        $items = [];
+
+        foreach ($this->items as $item) {
+
+            if ($item instanceof Ingredient === false) {
+                continue;
+            }
+
+            $text = $item->format($yieldFactor);
+            $text = kirbytextinline($text, ['parent' => $this->page]);
+            $text = strip_tags($text);
+            $text = Html::decode($text);
+
+            $items[] = $text;
+        }
+               
+        return $items;
+    }
+
     public function html(float $yieldFactor = 1): string
     {
         if (sizeof($this->items) === 0) {
@@ -56,8 +78,6 @@ class IngredientList
 
         $ingredientClass      = option('avoskitchen.kitchen.ingredientClass', 'ingredient');
         $ingredientGroupClass = option('avoskitchen.kitchen.ingredientGroupClass', 'ingredient-group');
-
-        $html = [];
 
         $html[] = '<div class="' . $ingredientGroupClass . '" markdown="1">';
 
