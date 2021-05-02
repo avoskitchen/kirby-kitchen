@@ -69,9 +69,16 @@ class Ingredient
             } else {
                 // Parse item for numeri (singular/plural forms)
                 while (($start = strpos($token, '[')) !== false) {
+                    if (isset($token[$start + 1]) && $token[$start + 1] === '[') {
+                        // Skip double square brackets, e.g. `[[wiki-link]]`
+                        $item[] = substr($token, 0, $start + 2);
+                        $token = substr($token, $start + 2);
+                        continue;
+                    }
+
                     $or = strpos($token, '|', $start);
                     $end = strpos($token, ']', $start);
-
+                    
                     if ($or !== false && $end !== false && $end > $or) {
 
                         $item[] = substr($token, 0, $start);
@@ -82,7 +89,6 @@ class Ingredient
                         $plural = $numeri[1];
 
                         $item[] = new Numerus($singular, $plural);
-
                         $token = substr($token, $end + 1);
                     } else {
                         $item[] = substr($token, 0, $start + 1);
