@@ -66,7 +66,7 @@ panel.plugin("avoskitchen/kitchen", {
         },
 
         getPageId() {
-          return this.$attrs.endpoints.model.replace(/^pages\//, "");
+          return this.$attrs.endpoints.model.replace(/^\/?pages\//, "");
         },
 
         apiRequest(action) {
