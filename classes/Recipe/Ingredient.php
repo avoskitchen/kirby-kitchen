@@ -35,7 +35,7 @@ class Ingredient
             (?:((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
             (?:\s+(.*)?) # Item description (rest of line)
             $/ux',
-            trim($ingredient),
+            trim($ingredient ?? ''),
             $matches
         );
 
@@ -78,7 +78,7 @@ class Ingredient
 
                     $or = strpos($token, '|', $start);
                     $end = strpos($token, ']', $start);
-                    
+
                     if ($or !== false && $end !== false && $end > $or) {
 
                         $item[] = substr($token, 0, $start);
@@ -123,7 +123,7 @@ class Ingredient
             }
         }
 
-        $item = trim(implode('', $item));
+        $item = trim(implode('', $item) ?? '');
 
         return trim(static::strTemplate($template, compact('amount', 'item')));
     }

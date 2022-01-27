@@ -1,5 +1,6 @@
 .DS_Store
 node_modules/
+.idea/
 
 # files of Composer dependencies that are not needed for the plugin
 /vendor/**/.*

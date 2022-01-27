@@ -33,11 +33,11 @@ class Amount
     {
         $this->page = $page;
 
-        $amount = trim($amount);
+        $amount = trim($amount ?? '');
 
         if (preg_match('/^((?:' . Chars::REGEX_PREFIXES . ')\s?)(.*)$/u', $amount, $matches)) {
             // Extract amount prefix
-            $this->prefix = trim($matches[1]);
+            $this->prefix = trim($matches[1] ?? '');
             $amount = $matches[2];
         }
 
