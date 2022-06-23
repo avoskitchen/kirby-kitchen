@@ -21,7 +21,6 @@ trait HasCategories
     public function getCategories(bool $empty = true, bool $unlisted = false): array
     {
         if (static::$allCategoryCache === null) {
-
             $categories = [];
 
             foreach ($this->content()->get('categories')->toStructure() as $item) {
@@ -38,12 +37,14 @@ trait HasCategories
         if (static::$nonEmptyCategoryCache === null) {
             $items = $this->children();
 
-            if($unlisted === false) {
+            if ($unlisted === false) {
                 $items = $items->listed();
             }
 
             $keysArray = $items->pluck('category', null, true);
-            $keysArray = array_flip(array_map(function($v) { return $v->value(); }, $keysArray));
+            $keysArray = array_flip(array_map(function ($v) {
+                return $v->value();
+            }, $keysArray));
 
             static::$nonEmptyCategoryCache = array_intersect_key(static::$allCategoryCache, $keysArray);
         }
@@ -65,12 +66,11 @@ trait HasCategories
 
         $index = [];
 
-        if (!$items->count() === 0) {
+        if (! $items->count() === 0) {
             return new Collection([]);
         }
 
         foreach ($this->getCategories() as $slug => $title) {
-
             $filtered = $items->filterBy('category', $slug);
 
             if ($filtered->count() === 0) {

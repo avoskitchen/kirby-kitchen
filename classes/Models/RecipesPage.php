@@ -5,9 +5,7 @@ namespace AvosKitchen\Kitchen\Models;
 use AvosKitchen\Kitchen\Traits\HasCategories;
 use AvosKitchen\Kitchen\Traits\HasUnits;
 use Kirby\Cms\Page;
-use Kirby\Cms\Field;
 use Kirby\Toolkit\Collection;
-use Kirby\Toolkit\Obj;
 
 class RecipesPage extends Page
 {
@@ -19,10 +17,10 @@ class RecipesPage extends Page
         $this->setProperties($props);
     }
 
-    public function latest(int $limit = 0, bool $unlisted = false): Collection {
-        
+    public function latest(int $limit = 0, bool $unlisted = false): Collection
+    {
         $items = $this->children();
-        
+
         if ($unlisted === false) {
             $items = $items->listed();
         }

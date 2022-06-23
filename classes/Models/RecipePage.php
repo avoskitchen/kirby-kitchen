@@ -5,18 +5,18 @@ namespace AvosKitchen\Kitchen\Models;
 use AvosKitchen\Kitchen\Recipe\Ingredient;
 use AvosKitchen\Kitchen\Recipe\IngredientList;
 use AvosKitchen\Kitchen\Traits\HasCategoryField;
+use Kirby\Cms\Collection;
 use Kirby\Cms\Field;
 use Kirby\Cms\Page;
-use Kirby\Cms\Collection;
 use Kirby\Toolkit\Str;
 
 class RecipePage extends Page
 {
     use HasCategoryField;
 
-    const DIAMETER_DEFAULT = 26; // cm
-    const DIAMETER_MIN = 10; // cm
-    const DIAMETER_MAX = 50; // cm
+    public const DIAMETER_DEFAULT = 26; // cm
+    public const DIAMETER_MIN = 10; // cm
+    public const DIAMETER_MAX = 50; // cm
 
     protected static $cuisinesCache;
     protected $typeCache;
@@ -35,6 +35,7 @@ class RecipePage extends Page
         if ($yield = $this->yield()->int()) {
             return $yield;
         }
+
         return 1;
     }
 
@@ -47,7 +48,7 @@ class RecipePage extends Page
 
             return $this->defaultDiameter();
         }
-        
+
         return null;
     }
 
@@ -68,13 +69,13 @@ class RecipePage extends Page
 
         return null;
     }
-    
+
     public function defaultDiameter(): ?int
     {
         if ($this->isType('pie') === true) {
             return $this->diameter()->or(static::DIAMETER_DEFAULT)->toInt();
         }
-        
+
         return null;
     }
 
@@ -95,9 +96,10 @@ class RecipePage extends Page
             $areaDefault = pow($this->defaultDiameter() / 2, 2) * pi();
             $areaConverted = pow($this->currentDiameter() / 2, 2) * pi();
             $areaFactor = $areaConverted / $areaDefault;
+
             return $yieldFactor * $areaFactor;
         }
-        
+
         return $yieldFactor;
     }
 
@@ -114,9 +116,9 @@ class RecipePage extends Page
 
         $ret = '';
 
-        if ($currentYield <= 1 && !empty($singular)) {
+        if ($currentYield <= 1 && ! empty($singular)) {
             $unit = $singular;
-        } else if ($currentYield > 1 && !empty($plural)) {
+        } elseif ($currentYield > 1 && ! empty($plural)) {
             $unit = $plural;
         } else {
             $unit = '';
@@ -158,7 +160,7 @@ class RecipePage extends Page
 
     public function ingredientsFormatted(): Field
     {
-        if (!isset($this->cache['kitchen.ingredients'])) {
+        if (! isset($this->cache['kitchen.ingredients'])) {
             $ingredients = $this->content()->ingredients();
             if ($ingredients->isNotEmpty()) {
                 $this->cache['kitchen.ingredients'] = new Field($this, 'ingredients', IngredientList::fromString($this, $ingredients)->html($this->yieldFactor()));
@@ -174,12 +176,13 @@ class RecipePage extends Page
     {
         $ingredients = $this->content()->ingredients()->toString();
         $ingredients = preg_replace('/<\!--(.*)-->/sU', '', $ingredients);
+
         return IngredientList::fromString($this, $ingredients)->toArray($this->yieldFactor());
     }
 
     public function instructionsFormatted(): Field
     {
-        if (!isset($this->cache['kitchen.instructions'])) {
+        if (! isset($this->cache['kitchen.instructions'])) {
             $instructions = $this->content()->instructions();
             if ($instructions->isNotEmpty()) {
                 $instructions = (new Ingredient($this, null, null, $instructions));
@@ -189,12 +192,13 @@ class RecipePage extends Page
                 $this->cache['kitchen.instructions'] = $instructions;
             }
         }
+
         return $this->cache['kitchen.instructions'];
     }
 
     public function tipsFormatted(): Field
     {
-        if (!isset($this->cache['kitchen.tips'])) {
+        if (! isset($this->cache['kitchen.tips'])) {
             $tips = $this->content()->tips();
             if ($tips->isNotEmpty()) {
                 $tips = (new Ingredient($this, null, null, $tips))->format($this->yieldFactor());
@@ -203,17 +207,18 @@ class RecipePage extends Page
                 $this->cache['kitchen.tips'] = $tips;
             }
         }
+
         return $this->cache['kitchen.tips'];
     }
 
     public function relatedRecipes(bool $unlisted = false): Collection
     {
         $category = $this->category()->value();
-        
+
         if (empty($category)) {
             return new Collection([], $this);
         }
-        
+
         $parent = $this->parent();
         $related = $this->related()->toPages();
 
@@ -222,7 +227,7 @@ class RecipePage extends Page
         } else {
             $items = $this->siblings(false)->filterBy('category', $category)->sortBy('lastedited', 'desc');
         }
-        
+
         if ($unlisted === false) {
             $items = $items->listed();
         }
@@ -245,7 +250,7 @@ class RecipePage extends Page
         $styles[] = "
         @media screen and (min-width: 65em) {
             a[href='{$this->panel()->url()}'] .k-list-item-text::after {
-                content: '" . (!empty($cuisines) ? $cuisines : '—') . "';
+                content: '" . (! empty($cuisines) ? $cuisines : '—') . "';
                 font-size: .75rem;
                 color: #777;
                 width: 33%;

@@ -1,5 +1,5 @@
 <?php snippet('header') ?>
-<?= css(Kirby::plugin('avoskitchen/kitchen')->mediaUrl() . '/css/kitchen.css') ?>
+<?= css(Kirby\Cms\App::plugin('avoskitchen/kitchen')->mediaUrl() . '/css/kitchen.css') ?>
 <?php /* @var AvosKitchen\Kitchen\Models\RecipePage $page */ ?>
 <?php /* @var Kirby $kirby */ ?>
 
@@ -15,7 +15,7 @@
     <?php endif ?>
   </header>
 
-  <?php if($page->text()->isNotEmpty()): ?>
+  <?php if ($page->text()->isNotEmpty()): ?>
     <div class="recipe-text">
       <?= $page->text()->kirbytext() ?>
     </div>
@@ -58,7 +58,7 @@
     <div class="recipe-meta">
       <p><strong>Kategorie:</strong> <?= $page->categoryTitle()->escape() ?></p>
 
-      <?php if($page->tags()->isNotEmpty()): ?>
+      <?php if ($page->tags()->isNotEmpty()): ?>
         <p><strong>Tags:</strong> <?= implode(', ', $page->tags()->split()) ?></p>
       <?php endif ?>
 
@@ -79,7 +79,7 @@
 </article>
 
 <?php
-$assetsUrl = Kirby::plugin('avoskitchen/kitchen')->mediaUrl();
+$assetsUrl = Kirby\Cms\App::plugin('avoskitchen/kitchen')->mediaUrl();
 echo js("{$assetsUrl}/js/kitchen.js", [
   'data-assets-url' => $assetsUrl,
 ]);

@@ -13,11 +13,11 @@ use Kirby\Cms\Page;
  */
 class Amount
 {
-    const TYPE_FLOAT = 1;
-    const TYPE_RANGE = 2;
-    const TYPE_FRACTION = 4;
-    const TYPE_UNKNOWN = 8;
-    const FALLBACK_AMOUNT = 2;
+    public const TYPE_FLOAT = 1;
+    public const TYPE_RANGE = 2;
+    public const TYPE_FRACTION = 4;
+    public const TYPE_UNKNOWN = 8;
+    public const FALLBACK_AMOUNT = 2;
 
     protected $page;
 
@@ -27,7 +27,7 @@ class Amount
     protected $max;
     protected $unit;
 
-    const REGEX_PREFIXES = 'ca\.|~'; // prefix of an amount
+    public const REGEX_PREFIXES = 'ca\.|~'; // prefix of an amount
 
     public function __construct(Page $page, string $amount = null, string $unit = null)
     {
@@ -47,7 +47,7 @@ class Amount
             $this->min = (float) $min;
             $this->max = (float) $max;
             $this->type = static::TYPE_RANGE;
-        } else if (preg_match('/^(\d+)(\s*[½⅓⅔¼¾]|\s+[\d,\.]+\/[\d,\.]+)$/u', $amount, $matches)) {
+        } elseif (preg_match('/^(\d+)(\s*[½⅓⅔¼¾]|\s+[\d,\.]+\/[\d,\.]+)$/u', $amount, $matches)) {
             // Fraction with multiplier, e.g. 2 1/2
             list(, $int, $fraction) = $matches;
 
@@ -60,21 +60,19 @@ class Amount
             if (strstr($fraction, '/')) {
                 list($nom, $dnom) = explode('/', $fraction);
                 $result += (float) ($nom / $dnom);
-            } else if ($val = NumberFormatter::instance()->fractionToFloat($fraction)) {
+            } elseif ($val = NumberFormatter::instance()->fractionToFloat($fraction)) {
                 $result += $val;
             }
 
             $this->min = $this->max = $result;
             $this->type = static::TYPE_FRACTION;
-
-        } else if (preg_match('/^([½⅓⅔¼¾]|[\d,\.]+\/[\d,\.]+)$/u', $amount, $matches)) {
+        } elseif (preg_match('/^([½⅓⅔¼¾]|[\d,\.]+\/[\d,\.]+)$/u', $amount, $matches)) {
             // Fraction, e.g. 1/2 or ½
 
             list($nom, $dnom) = explode('/', $amount);
             $this->min = $this->max = (float) ($nom / $dnom);
             $this->type = static::TYPE_FRACTION;
-
-        } else if ((float) str_replace(',', '.', $amount) > 0) {
+        } elseif ((float) str_replace(',', '.', $amount) > 0) {
             // Simple numeric value, e.g. 12 or 1,5
             $this->min = $this->max = (float) str_replace(',', '.', $amount);
             $this->type = static::TYPE_FLOAT;
@@ -84,7 +82,7 @@ class Amount
             $this->type = static::TYPE_UNKNOWN;
         }
 
-        $this->unit = !empty($unit) ? $unit : null;
+        $this->unit = ! empty($unit) ? $unit : null;
     }
 
     public function format(float $yieldFactor = 1): string
@@ -96,6 +94,7 @@ class Amount
             case static::TYPE_UNKNOWN:
                 // Non-numeric amounts (e.g. some leaves)
                 $unit = $this->unit !== null ? $this->page->parent()->unitNumerus($this->unit, static::FALLBACK_AMOUNT) : '';
+
                 return trim($prefix . $this->min . ' ' . $unit, Chars::SPACES);
 
             case static::TYPE_RANGE:

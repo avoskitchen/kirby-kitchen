@@ -1,6 +1,7 @@
 .DS_Store
 node_modules/
 .idea/
+.php-cs-fixer.cache
 
 # files of Composer dependencies that are not needed for the plugin
 /kirby

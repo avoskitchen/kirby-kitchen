@@ -8,7 +8,7 @@
       <div class="knowledge-category">
         <h2><?= $category->title()->escape() ?></h2>
         <ul>
-          <?php foreach($category->items() as $item): ?>
+          <?php foreach ($category->items() as $item): ?>
             <li><a href="<?= $item->url() ?>"><?= $item->title() ?></a></li>
           <?php endforeach ?>
         </ul>

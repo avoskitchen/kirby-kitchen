@@ -3,7 +3,6 @@
 namespace AvosKitchen\Kitchen\Traits;
 
 use Kirby\Cms\Field;
-use Kirby\Toolkit\Obj;
 
 /**
  * Used in pages where the parent page has category
@@ -14,14 +13,14 @@ trait HasCategoryField
 {
     public function categoryTitle(): Field
     {
-        $parent   = $this->parent();
+        $parent = $this->parent();
         $category = $this->content()->get('category')->value();
 
         $title = null;
 
-        if (!empty($category)) {
+        if (! empty($category)) {
             $categories = $parent->getCategories();
-        
+
             if (isset($categories[$category])) {
                 $title = $categories[$category];
             } else {

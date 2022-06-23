@@ -22,14 +22,14 @@ class Ingredient
         $this->page = $page;
         $this->amount = new Amount($page, $amount, $unit);
         $this->item = $this->parseItem($item);
-
     }
 
     public static function fromString(Page $page, string $ingredient): Ingredient
     {
         static::initPatterns($page);
 
-        preg_match('/^
+        preg_match(
+            '/^
             (?:-\s)? # Optional list item\/ingredient indicator prefix
             ((?:(?:(?:~|ca.)\s*)?[½⅓⅔¼¾\d,.][½⅓⅔¼¾\d,.\-–—\/' . Chars::REGEX_SPACES . ']*))? # Prefix + Amount
             (?:((?:' . static::$unitsPattern . ')[\?\!]?))? # Unit
@@ -42,15 +42,17 @@ class Ingredient
         if (sizeof($matches) > 0) {
             list(, $amount, $unit, $item) = $matches;
 
-            if (empty($unit) && !empty($item) && isset(static::$units[$item])) {
+            if (empty($unit) && ! empty($item) && isset(static::$units[$item])) {
                 // If unit was empty, but not item and item
                 // matches a unit, use item as unit.
                 $unit = $item;
                 $item = null;
             }
+
             return new static($page, $amount, (string) $unit, (string) $item);
         } else {
             $ingredient = preg_replace('/^[-*+]\s+/', '', $ingredient);
+
             return new static($page, null, null, $ingredient);
         }
     }
@@ -73,6 +75,7 @@ class Ingredient
                         // Skip double square brackets, e.g. `[[wiki-link]]`
                         $item[] = substr($token, 0, $start + 2);
                         $token = substr($token, $start + 2);
+
                         continue;
                     }
 
@@ -80,7 +83,6 @@ class Ingredient
                     $end = strpos($token, ']', $start);
 
                     if ($or !== false && $end !== false && $end > $or) {
-
                         $item[] = substr($token, 0, $start);
 
                         $numeri = explode('|', substr($token, $start + 1, $end - $start - 1));
@@ -105,7 +107,7 @@ class Ingredient
 
     public function format(float $yieldFactor = 1, string $template = '{amount} {item}'): string
     {
-        if (!is_null($this->amount)) {
+        if (! is_null($this->amount)) {
             $amount = $this->amount->format($yieldFactor);
         } else {
             $amount = '';
@@ -116,7 +118,7 @@ class Ingredient
         foreach ($this->item as $part) {
             if ($part instanceof Ingredient) {
                 $item[] = rtrim($part->format($yieldFactor, "{amount}\u{00a0}{item}"), "\u{00a0}"); // trim no break space it $item was empty
-            } else if ($part instanceof Numerus) {
+            } elseif ($part instanceof Numerus) {
                 $item[] = $part->resolve($this->amount->isNumeric() ? $this->amount->toFloat($yieldFactor) : 2);
             } else {
                 $item[] = $part;
@@ -131,6 +133,7 @@ class Ingredient
     public function html(float $yieldFactor = 1): string
     {
         $template = '<li class="' . option('avoskitchen.kitchen.ingredientClass', 'ingredient') . '" markdown="1"><span class="' . option('avoskitchen.kitchen.ingredientAmountClass') . '">{amount}</span> <span class="' . option('avoskitchen.kitchen.ingredientItemClass') . '">{item}</span></li>';
+
         return $this->format($yieldFactor, $template);
     }
 
@@ -147,7 +150,9 @@ class Ingredient
                 // Sort by length
                 return strlen($b) <=> strlen($a);
             });
-            $units = array_map(function ($var) {return preg_quote($var, '/');}, $units);
+            $units = array_map(function ($var) {
+                return preg_quote($var, '/');
+            }, $units);
             static::$units = array_flip($units);
             static::$unitsPattern = implode('|', $units);
         }
@@ -161,9 +166,9 @@ class Ingredient
      * @param  array  $data An associative array with keys, which should be replaced and values.
      * @return string
      */
-    public static function strTemplate($string, $data = array()): string
+    public static function strTemplate($string, $data = []): string
     {
-        $replace = array();
+        $replace = [];
         foreach ($data as $key => $value) {
             $replace['{' . $key . '}'] = $value;
         }
@@ -171,7 +176,8 @@ class Ingredient
         return str_replace(array_keys($replace), array_values($replace), $string);
     }
 
-    public function __debugInfo() {
+    public function __debugInfo()
+    {
         return [
             'amount' => $this->amount,
             'unit' => $this->unit,

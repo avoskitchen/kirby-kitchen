@@ -4,7 +4,6 @@
 
 use AvosKitchen\Kitchen\Api;
 use Kirby\Cms\App as Kirby; // Satisfy linter
-use Kirby\Cms\PluginAssets;
 
 $kirby = kirby();
 
@@ -93,7 +92,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                     return "plugin-kitchen/{$job}";
                 },
                 'hideif' => function (string $job = null) {
-                    return !empty($job) ? "plugin-kitchen/{$job}" : null;
+                    return ! empty($job) ? "plugin-kitchen/{$job}" : null;
                 },
                 'cooldown' => function () {
                     return 2000;
@@ -104,7 +103,6 @@ Kirby::plugin('avoskitchen/kitchen', [
 
     'hooks' => [
         'page.create:before' => function ($page, $input) {
-
             switch ($input['template']) {
 
                 case 'knowledge':
@@ -117,6 +115,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                     if ($page->parent() !== null) {
                         throw new Exception('A knowledge base page can only be created at the top-level of your site.');
                     }
+
                     break;
             }
         },
@@ -131,6 +130,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                         'created' => $now,
                         'lastEdited' => $now,
                     ], false);
+
                     break;
             }
         },
@@ -141,6 +141,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                     $newPage->update([
                         'lastEdited' => date('Y-m-d H:i:s'),
                     ], false);
+
                     break;
             }
         },

@@ -11,7 +11,7 @@ class NumberFormatter
     protected static $instance;
 
     protected $decimalPoint = ',';
-    protected $decimals  = 2;
+    protected $decimals = 2;
     protected $fractions = [];
     protected $thousandsSeparator = ',';
     protected $useFractions = true;
@@ -27,10 +27,10 @@ class NumberFormatter
 
     protected function __construct()
     {
-        $this->decimalPoint       = option('avoskitchen.kitchen.decimalPoint', '.');
-        $this->decimals           = option('avoskitchen.kitchen.decimals', 2);
+        $this->decimalPoint = option('avoskitchen.kitchen.decimalPoint', '.');
+        $this->decimals = option('avoskitchen.kitchen.decimals', 2);
         $this->thousandsSeparator = option('avoskitchen.kitchen.thousandsSeparator', ',');
-        $this->useFractions       = option('avoskitchen.kitchen.fractions', true);
+        $this->useFractions = option('avoskitchen.kitchen.fractions', true);
 
         $this->fractions = [
             // static::getFractionKey(1 / 6) => '&#8537;',
@@ -71,7 +71,7 @@ class NumberFormatter
 
         $parts = explode('.', $key);
 
-        if(sizeof($parts) === 2) {
+        if (sizeof($parts) === 2) {
             $decimals = '0.' . $parts[1];
 
             if (isset($this->fractions[$decimals])) {
@@ -86,6 +86,7 @@ class NumberFormatter
     {
         $number = number_format($number, $this->decimals, $this->decimalPoint, $this->thousandsSeparator);
         $number = rtrim(rtrim($number, '0'), $this->decimalPoint); // remove trailing zeroes and comma
+
         return $number;
     }
 
@@ -96,16 +97,16 @@ class NumberFormatter
         if ($unit === 'ml' && $amount >= 1000) {
             $amount /= 1000;
             $unit = 'l';
-        } else if ($unit === 'g' && $amount >= 1000) {
+        } elseif ($unit === 'g' && $amount >= 1000) {
             $amount /= 1000;
             $unit = 'kg';
-        } else if ($unit === 'kg' && $amount < 1) {
+        } elseif ($unit === 'kg' && $amount < 1) {
             $amount *= 1000;
             $unit = 'g';
-        } else if ($unit === 'TL' && $amount >= 3 && $amount != 4) {
+        } elseif ($unit === 'TL' && $amount >= 3 && $amount !== 4) {
             $amount /= 3;
             $unit = 'EL';
-        } else if ($unit === 'EL' && $amount < 1 && $isFraction === false) {
+        } elseif ($unit === 'EL' && $amount < 1 && $isFraction === false) {
             $amount *= 3;
             $unit = 'TL';
         }
@@ -123,9 +124,10 @@ class NumberFormatter
         // Smooth out values
         $floor = floor($amount);
         $decimals = $amount - $floor;
-        foreach([.25, .5, .75, 1] as $frac) {
+        foreach ([.25, .5, .75, 1] as $frac) {
             if (abs(($decimals - $frac) / $frac) < .125) {
                 $amount = $floor + $frac;
+
                 break;
             }
         }
@@ -133,7 +135,7 @@ class NumberFormatter
         // Convert to fraction if enabled in config.
         if ($this->useFractions === true) {
             $fraction = $this->toFraction($amount);
-            if ($fraction != (string) $amount) {
+            if ($fraction !== (string) $amount) {
                 $amount = $fraction;
             } else {
                 $amount = $this->formatValue($amount);
@@ -142,7 +144,7 @@ class NumberFormatter
             $amount = $this->formatValue($amount);
         }
 
-        if (!empty($unit)) {
+        if (! empty($unit)) {
             $unit = "\u{00a0}$unit"; // prepend non-breaking space
         }
 
@@ -159,7 +161,7 @@ class NumberFormatter
         if (isset($this->fractionEquivalents[$fraction])) {
             return $this->fractionEquivalents[$fraction];
         }
-        
+
         $parts = explode('/', $fraction);
         if (sizeof($parts) > 0) {
             return (float) ((int) $parts[0] / (int) $parts[0]);

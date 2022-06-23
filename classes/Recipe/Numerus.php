@@ -7,7 +7,7 @@ namespace AvosKitchen\Kitchen\Recipe;
  * resolve them based on a given amount. Only supports
  * languages with singular form (n = 1) and plural form (n != 1)
  * or languages with no numeri at all.
- * 
+ *
  * Languages with duals, paucals (and possibly other numeri
  * are not fully supported yet).
  */

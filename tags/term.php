@@ -5,8 +5,6 @@
  */
 
 use Kirby\Cms\Html;
-use Kirby\Cms\Url;
-use Kirby\Toolkit\Str;
 
 return [
     'attr' => [
@@ -15,7 +13,6 @@ return [
         'title',
     ],
     'html' => function ($tag) {
-
         $base = site()->children()->filterBy('template', 'knowledge')->first();
 
         $term = $tag->attr('term');
@@ -26,7 +23,7 @@ return [
         } else {
             $hash = '';
         }
-        
+
         $target = "{$base->id()}/{$term}";
         $targetPage = $base->findPageOrDraft($term);
 
@@ -56,6 +53,5 @@ return [
             'class' => $tag->attr('class'),
             'title' => $tag->attr('title'),
         ]);
-
     },
 ];

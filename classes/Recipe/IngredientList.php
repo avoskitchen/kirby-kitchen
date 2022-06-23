@@ -12,9 +12,9 @@ use Kirby\Toolkit\Html;
 
 class IngredientList
 {
-    const ITEM_INGREDIENT = 1;
-    const ITEM_TEXT       = 2;
-    const ITEM_HEADLINE   = 3;
+    public const ITEM_INGREDIENT = 1;
+    public const ITEM_TEXT = 2;
+    public const ITEM_HEADLINE = 3;
 
     public $items = [];
 
@@ -25,12 +25,12 @@ class IngredientList
 
     protected function __construct(Page $page, int $defaultYield = 1, int $yield = 1, array $items = null)
     {
-        $this->page         = $page;
+        $this->page = $page;
         $this->defaultYield = $defaultYield;
-        $this->yield        = $yield;
+        $this->yield = $yield;
 
-        $this->yieldFactor  = $this->defaultYield / $this->yield;
-        $this->items        = $items;
+        $this->yieldFactor = $this->defaultYield / $this->yield;
+        $this->items = $items;
     }
 
     public static function fromString(Page $page, string $text): IngredientList
@@ -54,7 +54,6 @@ class IngredientList
         $items = [];
 
         foreach ($this->items as $item) {
-
             if ($item instanceof Ingredient === false) {
                 continue;
             }
@@ -66,7 +65,7 @@ class IngredientList
 
             $items[] = $text;
         }
-               
+
         return $items;
     }
 
@@ -76,7 +75,7 @@ class IngredientList
             return '';
         }
 
-        $ingredientClass      = option('avoskitchen.kitchen.ingredientClass', 'ingredient');
+        $ingredientClass = option('avoskitchen.kitchen.ingredientClass', 'ingredient');
         $ingredientGroupClass = option('avoskitchen.kitchen.ingredientGroupClass', 'ingredient-group');
 
         $html[] = '<div class="' . $ingredientGroupClass . '" markdown="1">';
@@ -84,7 +83,6 @@ class IngredientList
         $lastItem = null;
 
         foreach ($this->items as $item) {
-
             if ($item instanceof Ingredient) {
                 if ($lastItem !== static::ITEM_INGREDIENT) {
                     $html[] = '<ul markdown="1">';
@@ -107,7 +105,7 @@ class IngredientList
             }
         }
 
-        if($lastItem === static::ITEM_INGREDIENT) {
+        if ($lastItem === static::ITEM_INGREDIENT) {
             $html[] = '</ul>';
         }
 
@@ -117,7 +115,7 @@ class IngredientList
 
         // Parse Kirbytext, so the <p> tag fix can be added after
         $html = kirbytext($html, [
-            'parent' => $this->page
+            'parent' => $this->page,
         ]);
 
         // Remove <p> tags that are added by Parsedown to list elements as soon
@@ -125,6 +123,5 @@ class IngredientList
         $html = preg_replace('/(<li class="' . preg_quote($ingredientClass, '/') . '">)\s*<p>(.*)<\/p>\s*(<\/li>)/siU', '$1$2$3', $html);
 
         return $html;
-
     }
 }

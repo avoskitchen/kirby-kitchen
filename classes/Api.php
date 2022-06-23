@@ -10,7 +10,6 @@ use Kirby\Toolkit\Str;
 
 class Api
 {
-
     protected static $jobs = [
         'has-categories' => 'hasCategories',
         'load-default-categories' => 'loadDefaultCategories',
@@ -23,7 +22,7 @@ class Api
     public static function api(string $job): array
     {
         $job = Str::slug($job);
-        
+
         $before = time();
         $data = [];
         $success = false;
@@ -34,7 +33,7 @@ class Api
             if (is_array($r)) {
                 $data = $r;
                 $v = A::get($data, 'status', 404);
-                $success = intval($v) == 200;
+                $success = intval($v) === 200;
             } else {
                 $success = boolval($r);
             }
@@ -58,13 +57,12 @@ class Api
             throw new Exception('page parameter was empty');
         }
 
-        if (!$page = site()->find($pageId)) {
+        if (! $page = site()->find($pageId)) {
             throw new Exception('page not found');
         }
 
         return $page;
     }
-
 
     public static function hasCategories(): array
     {
@@ -75,7 +73,6 @@ class Api
             'result' => $page->categories()->toStructure()->count() > 0,
         ];
     }
-
 
     public static function hasCuisines(): array
     {
@@ -120,7 +117,6 @@ class Api
             'hideButton' => true,
         ];
     }
-
 
     public static function loadDefaultCuisines()
     {

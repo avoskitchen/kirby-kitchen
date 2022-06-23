@@ -1,8 +1,6 @@
 <?php
 
-use Kirby\Cms\Url;
 use Kirby\Toolkit\Html;
-use Kirby\Toolkit\Str;
 
 /**
  * Inserts a link to a recipe page into an article.
@@ -16,11 +14,10 @@ return [
         'title',
     ],
     'html' => function ($tag) {
-
         $parentPage = $tag->parent()->parent();
         $recipe = $tag->value;
 
-        
+
         if (strstr($recipe, '#') !== false) {
             list($recipe, $hash) = explode('#', $recipe);
             $hash = "#{$hash}";
@@ -69,6 +66,5 @@ return [
             'title' => $tag->attr('title'),
             'style' => $style ?? null,
         ]);
-
     },
 ];

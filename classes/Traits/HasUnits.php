@@ -32,17 +32,15 @@ trait HasUnits
      */
     public function unitNumerus(string $unit, float $amount): string
     {
-
         if (is_null(static::$unitsSingularCache) || is_null(static::$unitsPluralCache)) {
             $unitsSingular = [];
             $unitsPlural = [];
 
             foreach ($this->getUnits() as $item) {
-
                 $singular = $item->singular()->value();
                 $plural = $item->plural()->value();
 
-                if (!empty($singular) && !empty($unitsPlural)) {
+                if (! empty($singular) && ! empty($unitsPlural)) {
                     $unitsSingular[$singular] = $plural;
                     $unitsPlural[$plural] = $singular;
                 }
@@ -54,7 +52,7 @@ trait HasUnits
 
         if (isset(static::$unitsSingularCache[$unit]) && $amount !== 1) {
             return static::$unitsSingularCache[$unit];
-        } else if (isset(static::$unitsPluralCache[$unit]) && $amount === 1) {
+        } elseif (isset(static::$unitsPluralCache[$unit]) && $amount === 1) {
             return static::$unitsPluralCache[$unit];
         }
 
@@ -71,16 +69,15 @@ trait HasUnits
             $units = [];
 
             foreach ($this->getUnits() as $item) {
-
                 $singular = $item->singular()->value();
                 $short = $item->short()->value();
                 $plural = $item->plural()->value();
 
-                if (!empty($short)) {
+                if (! empty($short)) {
                     $units[] = $short;
                 }
 
-                if (!empty($plural)) {
+                if (! empty($plural)) {
                     $units[] = $plural;
                 }
 

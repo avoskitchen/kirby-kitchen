@@ -3,7 +3,7 @@
 /**
  *  This file is part of Kirby-Typography. A port of wp-Typography
  *  for Kirby CMS (https://getkirby.com).
- *  
+ *
  *  Copyright of Kirby-Typography:
  *  2016 Fabian Michael.
  *
@@ -32,42 +32,48 @@
  *  @author Fabian Michael <hallo@avoskitchen.de>
  *  @license http://www.gnu.org/licenses/gpl-2.0.html
  */
- 
+
 namespace Kitchen;
+
 use Cache\Driver\File as FileCache;
 use Dir;
 use F;
 
-class Cache {
-  
-  protected $cacheRoot;
-  protected $driver;
-  
-  protected function __construct() {
-    
-    $this->cacheRoot = kirby()->roots()->cache(); //  . DS . 'plugins' . DS . 'kitchen';
-    
-    // if (!f::exists($this->cacheRoot)) {
-    //   dir::make($this->cacheRoot);
-    // }
-      
-    $this->driver = new FileCache($this->cacheRoot);
-  }
-  
-  public static function instance() {
-    static $instance;
-    return $instance ?: $instance = new self();
-  }
-  
-  public function driver() {
-    return $this->driver;
-  }
-  
-  public function root() {
-    return $this->cacheRoot;
-  }
-  
-  public function __call($name, $arguments) {
-    return call_user_func_array([$this->driver, $name], $arguments);
-  }
+class Cache
+{
+    protected $cacheRoot;
+    protected $driver;
+
+    protected function __construct()
+    {
+        $this->cacheRoot = kirby()->roots()->cache(); //  . DS . 'plugins' . DS . 'kitchen';
+
+        // if (!f::exists($this->cacheRoot)) {
+        //   dir::make($this->cacheRoot);
+        // }
+
+        $this->driver = new FileCache($this->cacheRoot);
+    }
+
+    public static function instance()
+    {
+        static $instance;
+
+        return $instance ?: $instance = new self();
+    }
+
+    public function driver()
+    {
+        return $this->driver;
+    }
+
+    public function root()
+    {
+        return $this->cacheRoot;
+    }
+
+    public function __call($name, $arguments)
+    {
+        return call_user_func_array([$this->driver, $name], $arguments);
+    }
 }

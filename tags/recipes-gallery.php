@@ -14,7 +14,6 @@ return [
         'title',
     ],
     'html' => function ($tag) {
-
         $site = $tag->site();
         $user = $tag->kirby()->user();
         $parentPage = $tag->parent()->parent();
