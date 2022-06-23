@@ -244,7 +244,7 @@ class RecipePage extends Page
         $cuisines = $this->cuisinesFormatted();
         $styles[] = "
         @media screen and (min-width: 65em) {
-            a[href='{$this->panelUrl()}'] .k-list-item-text::after {
+            a[href='{$this->panel()->url()}'] .k-list-item-text::after {
                 content: '" . (!empty($cuisines) ? $cuisines : '—') . "';
                 font-size: .75rem;
                 color: #777;

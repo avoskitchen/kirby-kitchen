@@ -1,6 +1,6 @@
 {
   "name": "kirby-kitchen",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -16,9 +16,5 @@
   "bugs": {
     "url": "https://github.com/avoskitchen/kirby-kitchen/issues"
   },
-  "homepage": "https://github.com/avoskitchen/kirby-kitchen/issues#README",
-  "devDependencies": {},
-  "dependencies": {
-    "laravel-mix": "^5.0.1"
-  }
+  "homepage": "https://github.com/avoskitchen/kirby-kitchen/issues#README"
 }

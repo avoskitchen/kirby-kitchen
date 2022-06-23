@@ -67,11 +67,11 @@
       <?php endif ?>
 
       <?php if ($page->lastEdited()->isNotEmpty()): ?>
-        <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('%d.%m.%Y um %H:%M') ?>&nbsp;Uhr</p>
+        <p><strong>Zuletzt bearbeitet:</strong> <?= $page->lastEdited()->toDate('d.m.Y H:i') ?>&nbsp;Uhr</p>
       <?php endif ?>
 
       <?php if ($kirby->user()): ?>
-        <p><a href="<?= $page->panelUrl() ?>" class="recipe-edit-link">Bearbeiten</a></p>
+        <p><a href="<?= $page->panel()->url() ?>" class="recipe-edit-link">Bearbeiten</a></p>
       <?php endif ?>
     </div>
   </footer>
