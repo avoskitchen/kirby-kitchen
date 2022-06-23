@@ -1,12 +1,5 @@
 {
   "name": "kirby-kitchen",
-  "version": "0.6.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "build": "NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com:avoskitchen/kirby-kitchen.git"

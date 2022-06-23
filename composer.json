@@ -1,7 +1,7 @@
 {
   "name": "avoskitchen/kirby-kitchen",
   "type": "kirby-plugin",
-  "version": "0.6.1",
+  "version": "0.7",
   "description": "",
   "license": "MIT",
   "autoload": {
