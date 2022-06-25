@@ -129,7 +129,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                     $page->update([
                         'created' => $now,
                         'lastEdited' => $now,
-                    ], false);
+                    ]);
 
                     break;
             }
@@ -140,7 +140,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                 case 'recipe':
                     $newPage->update([
                         'lastEdited' => date('Y-m-d H:i:s'),
-                    ], false);
+                    ]);
 
                     break;
             }
