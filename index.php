@@ -4,6 +4,7 @@
 
 use AvosKitchen\Kitchen\Api;
 use Kirby\Cms\App as Kirby; // Satisfy linter
+use Kirby\Cms\Page;
 
 $kirby = kirby();
 
@@ -102,7 +103,7 @@ Kirby::plugin('avoskitchen/kitchen', [
     ],
 
     'hooks' => [
-        'page.create:before' => function ($page, $input) {
+        'page.create:before' => function (Page $page, array $input) {
             switch ($input['template']) {
 
                 case 'knowledge':
@@ -119,7 +120,7 @@ Kirby::plugin('avoskitchen/kitchen', [
                     break;
             }
         },
-        'page.create:after' => function ($page) {
+        'page.create:after' => function (Page $page) {
             switch ($page->template()) {
                 case 'term':
                 case 'recipe':
@@ -129,18 +130,18 @@ Kirby::plugin('avoskitchen/kitchen', [
                     $page->update([
                         'created' => $now,
                         'lastEdited' => $now,
-                    ]);
+                    ], null);
 
                     break;
             }
         },
-        'page.update:after' => function ($newPage, $oldPage) {
+        'page.update:after' => function (Page $newPage, Page $oldPage) {
             switch ($newPage->template()) {
                 case 'term':
                 case 'recipe':
                     $newPage->update([
                         'lastEdited' => date('Y-m-d H:i:s'),
-                    ]);
+                    ], null);
 
                     break;
             }
