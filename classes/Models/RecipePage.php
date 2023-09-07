@@ -21,6 +21,8 @@ class RecipePage extends Page
     protected static $cuisinesCache;
     protected $typeCache;
 
+    protected array $cache = [];
+
     public function currentYield(): int
     {
         if ($yield = (int) get('yield')) {
