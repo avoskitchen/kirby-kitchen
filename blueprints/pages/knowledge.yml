@@ -7,7 +7,7 @@ tabs:
 
   pages:
     label: Einträge
-    icon: kitchen-library
+    icon: kitchen-glasses
     sections:
       drafts:
         headline:

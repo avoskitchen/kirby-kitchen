@@ -1,5 +1,6 @@
+type: info
 label:
   en: Last edited
   de: Zuletzt bearbeitet
-type: kitchen-lastedited
-source: field
+theme: neutral
+text: "{{ page.lastEdited.toDate('dd.MM.yyyy HH:mm \'Uhr\'') }}"

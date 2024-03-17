@@ -10,7 +10,7 @@ fields:
       en: Amount
       de: Menge
     type: number
-    icon: kitchen-salad
+    icon: kitchen-bowl
     width: 1/3
   yieldSingular:
     label:

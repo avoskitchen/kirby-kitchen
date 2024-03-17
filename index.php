@@ -2,13 +2,10 @@
 
 @include_once __DIR__ . '/vendor/autoload.php';
 
-use AvosKitchen\Kitchen\Api;
-use Kirby\Cms\App as Kirby; // Satisfy linter
+use Kirby\Cms\App;
 use Kirby\Cms\Page;
 
-$kirby = kirby();
-
-Kirby::plugin('avoskitchen/kitchen', [
+App::plugin('avoskitchen/kitchen', [
 
     'options' => [
         'fractions' => true,
@@ -21,20 +18,9 @@ Kirby::plugin('avoskitchen/kitchen', [
         'ingredientItemClass' => 'ingredient-item',
     ],
 
-    'api' => [
-        'routes' => [
-            [
-                'pattern' => 'plugin-kitchen/(:any)',
-                'action' => function (string $job) {
-                    return Api::api($job);
-                },
-            ],
-        ],
-    ],
-
     'blueprints' => [
 
-        # Fields
+        # fields
 
         'kitchen/fields/category-options' => __DIR__ . '/blueprints/fields/category-options.yml',
         'kitchen/fields/category' => __DIR__ . '/blueprints/fields/category.yml',
@@ -45,61 +31,26 @@ Kirby::plugin('avoskitchen/kitchen', [
         'kitchen/fields/tags' => __DIR__ . '/blueprints/fields/tags.yml',
         'kitchen/fields/unit-options' => __DIR__ . '/blueprints/fields/unit-options.yml',
 
-        # Pages
+        # pages
 
         'pages/knowledge' => __DIR__ . '/blueprints/pages/knowledge.yml',
         'pages/recipe' => __DIR__ . '/blueprints/pages/recipe.yml',
         'pages/recipes' => __DIR__ . '/blueprints/pages/recipes.yml',
         'pages/term' => __DIR__ . '/blueprints/pages/term.yml',
 
-        # Pages are also registred with a namespaced Alias, so they can be extended
-        # in your own page blueprints.
+        # pages are also registred with a namespaced alias, so they can be extended
+        # in your own page blueprints
 
         'kitchen/pages/knowledge' => __DIR__ . '/blueprints/pages/knowledge.yml',
         'kitchen/pages/recipe' => __DIR__ . '/blueprints/pages/recipe.yml',
         'kitchen/pages/recipes' => __DIR__ . '/blueprints/pages/recipes.yml',
         'kitchen/pages/term' => __DIR__ . '/blueprints/pages/term.yml',
 
-        # Sections
+        # sections
 
         'kitchen/sections/files' => __DIR__ . '/blueprints/sections/files.yml',
         'kitchen/sections/recipe-content' => __DIR__ . '/blueprints/sections/recipe-content.yml',
         'kitchen/sections/recipe-meta' => __DIR__ . '/blueprints/sections/recipe-meta.yml',
-    ],
-
-    'fields' => [
-        'kitchen-lastedited' => [
-            'props' => [
-                'value' => function ($value = null) {
-                    return $value;
-                },
-            ],
-            'computed' => [
-                'modified' => function () {
-                    return $this->model()->modified();
-                },
-            ],
-        ],
-
-        'kitchen-ajaxbutton' => [
-            'props' => [
-                'label' => function (string $label = null) {
-                    return $label;
-                },
-                'progress' => function (string $progress = null) {
-                    return $progress;
-                },
-                'job' => function (string $job = null) {
-                    return "plugin-kitchen/{$job}";
-                },
-                'hideif' => function (string $job = null) {
-                    return ! empty($job) ? "plugin-kitchen/{$job}" : null;
-                },
-                'cooldown' => function () {
-                    return 2000;
-                },
-            ],
-        ],
     ],
 
     'hooks' => [
@@ -124,7 +75,7 @@ Kirby::plugin('avoskitchen/kitchen', [
             switch ($page->template()) {
                 case 'term':
                 case 'recipe':
-                    // Inspired by the Kirby Last Edited Field by Dennis Kerzig (released under the MIT license)
+                    // inspired by the kirby last edited field by dennis kerzig (released under the mit license)
                     // https://github.com/wottpal/kirby-last-edited
                     $now = date('Y-m-d H:i:s');
                     $page->update([

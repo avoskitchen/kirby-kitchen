@@ -9,8 +9,6 @@ a semi-public plugin, as we cannot provide any support for it. But if you’re
 interested in using it on your site, feel free to use or adapt the code to your
 needs. But use at you own risk, of course ;-) If you got any idea of how this can be improved, feel free to create a ticket or pull request.
 
-Localization is currently a wild mix between English and German, mainly due to the fact that some features of the Kirby 3 Plugin API have not been thoroughly documented yet and we are still trying to figure out how to handle these things properly.
-
 ## How it works
 
 The plugin provides a set of templates that can be used as a starting point for your recipe collection, food blog or whatsoever. To start using the plugin, just tune the settings below to your needs, then go to the panel and create two new top-level pages:
@@ -20,8 +18,8 @@ The plugin provides a set of templates that can be used as a starting point for 
 
 ## System Requirements
 
-- Kirby 3.5+
-- PHP 8.0+
+- Kirby 4.1.0+
+- PHP 8.1+
 
 ## Installation
 
@@ -96,7 +94,6 @@ tabs:
 
 This plugin uses code from the following Kirby 3 plugins:
 
-- [Kirby 3 Janitor](https://github.com/bnomei/kirby3-janitor) by  Bruno Meilick.
 - [Kirby Last Edited]( https://github.com/wottpal/kirby-last-edited/) by Dennis Kerzig.
 
 ## License

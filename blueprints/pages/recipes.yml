@@ -40,15 +40,9 @@ tabs:
 
   cuisines:
     label: Küchen
-    icon: kitchen-world
+    icon: globe
     fields:
       cuisines: kitchen/fields/cuisine-options
-      cuisineDefaults:
-        label: Standard-Küchen laden
-        type: kitchen-ajaxbutton
-        hideif: has-cuisines
-        job: load-default-cuisines
-        progress: Wird ausgeführt …
 
 ################################################################################
 
@@ -65,12 +59,6 @@ tabs:
           wie bswp. Vorspeisen, Hauptgerichte, Beilagen etc. Wenn du allerdigns
           nur Backrezepte sammelst, dann könnte z.B. eine Aufteilung in Kuchen,
           Dauergebäck, Brote etc. sinnvoller sein.
-      categoryDefaults:
-        label: Standard-Kategorien laden
-        type: kitchen-ajaxbutton
-        hideif: has-categories
-        job: load-default-categories
-        progress: Wird ausgeführt …
 
 ################################################################################
   
@@ -79,10 +67,4 @@ tabs:
     icon: kitchen-scale
     fields:
       units: kitchen/fields/unit-options
-      unitDefaults:
-        label: Standard-Einheiten laden
-        type: kitchen-ajaxbutton
-        hideif: has-units
-        job: load-default-units
-        progress: Wird ausgeführt …
 
