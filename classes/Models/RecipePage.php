@@ -239,56 +239,6 @@ class RecipePage extends Page
 
     public function panelListInfo(): string
     {
-        $categoryTitle = $this->categoryTitle();
-
-        if ($categoryTitle->isEmpty()) {
-            $categoryTitle = '—';
-        }
-
-        $styles = [];
-
-        // Cuisines
-        $cuisines = $this->cuisinesFormatted();
-        $styles[] = "
-        @media screen and (min-width: 65em) {
-            a[href='{$this->panel()->url()}'] .k-list-item-text::after {
-                content: '" . (! empty($cuisines) ? $cuisines : '—') . "';
-                font-size: .75rem;
-                color: #777;
-                width: 33%;
-                overflow: hidden;
-                display: block;
-                text-overflow: ellipsis;
-                text-align: right;
-            }
-        }";
-
-        if (sizeof($styles) !== 0) {
-            return $categoryTitle . '<style>' . implode('', $styles) . '</style>';
-        } else {
-            return $categoryTitle;
-        }
-    }
-
-    public function panelPopupInfo(): string
-    {
-        $categoryTitle = $this->categoryTitle();
-
-        if ($categoryTitle->isEmpty()) {
-            $categoryTitle = '—';
-        }
-
-        $styles = [];
-        $elements = [];
-
-        $styles[] = '.k-pages-field.k-field-name-related .k-list-item-text {
-            padding-left: 1.75rem;
-        }';
-
-        if (sizeof($styles) !== 0) {
-            return $categoryTitle . '<style>' . implode('', $styles) . '</style>' . implode('', $elements); // '<style>' . implode('', $styles) . '</style>';
-        } else {
-            return $categoryTitle;
-        }
+        return $this->categoryTitle()->or('—');
     }
 }

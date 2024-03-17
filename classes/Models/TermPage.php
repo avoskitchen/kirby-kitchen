@@ -11,12 +11,6 @@ class TermPage extends Page
 
     public function panelListInfo(): string
     {
-        $categoryTitle = $this->categoryTitle();
-
-        if ($categoryTitle->isEmpty()) {
-            return '—';
-        }
-
-        return $categoryTitle;
+        return $this->categoryTitle()->or('—');
     }
 }
