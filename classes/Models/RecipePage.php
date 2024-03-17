@@ -6,7 +6,7 @@ use AvosKitchen\Kitchen\Recipe\Ingredient;
 use AvosKitchen\Kitchen\Recipe\IngredientList;
 use AvosKitchen\Kitchen\Traits\HasCategoryField;
 use Kirby\Cms\Collection;
-use Kirby\Cms\Field;
+use Kirby\Content\Field;
 use Kirby\Cms\Page;
 use Kirby\Toolkit\Str;
 

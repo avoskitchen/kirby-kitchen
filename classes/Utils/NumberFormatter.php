@@ -3,8 +3,7 @@
 namespace AvosKitchen\Kitchen\Utils;
 
 /**
- * Utility class with some static methods for formatting
- * numbers.
+ * utility class with some static methods for formatting numbers.
  */
 class NumberFormatter
 {
@@ -33,21 +32,11 @@ class NumberFormatter
         $this->useFractions = option('avoskitchen.kitchen.fractions', true);
 
         $this->fractions = [
-            // static::getFractionKey(1 / 6) => '&#8537;',
-            // static::getFractionKey(1 / 5) => '&#8533;',
             $this->getFractionKey(1 / 4) => '&#188;',
             $this->getFractionKey(1 / 3) => '&#8531;',
-            // static::getFractionKey(2 / 5) => '&#8534;',
             $this->getFractionKey(1 / 2) => '&#189;',
-            // static::getFractionKey(3 / 5) => '&#8535;',
             $this->getFractionKey(2 / 3) => '&#8532;',
             $this->getFractionKey(3 / 4) => '&#190;',
-            // static::getFractionKey(4 / 5) => '&#8536;',
-            // static::getFractionKey(5 / 6) => '&#8538;',
-            // static::getFractionKey(1 / 8) => '&#8539;',
-            // static::getFractionKey(3 / 8) => '&#8540;',
-            // static::getFractionKey(5 / 8) => '&#8541;',
-            // static::getFractionKey(7 / 8) => '&#8542;',
         ];
     }
 
@@ -112,12 +101,12 @@ class NumberFormatter
         }
 
         if (in_array($unit, ['g', 'ml']) === true) {
-            // No need for decimal for small units
+            // no need for decimal for small units
             $amount = round($amount, 0);
         }
 
         if (in_array($unit, ['EL', 'TL', 'Prise', 'Prisen']) === true && $isFraction === false) {
-            // No need for decimal for small units
+            // no need for decimal for small units
             $amount = round($amount, 1);
         }
 
@@ -132,7 +121,7 @@ class NumberFormatter
             }
         }
 
-        // Convert to fraction if enabled in config.
+        // convert to fraction if enabled in config
         if ($this->useFractions === true) {
             $fraction = $this->toFraction($amount);
             if ($fraction !== (string) $amount) {

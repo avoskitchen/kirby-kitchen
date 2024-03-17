@@ -2,7 +2,7 @@
 
 namespace AvosKitchen\Kitchen\Traits;
 
-use Kirby\Cms\Field;
+use Kirby\Content\Field;
 
 /**
  * Used in pages where the parent page has category

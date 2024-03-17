@@ -3,8 +3,7 @@
 namespace AvosKitchen\Kitchen\Utils;
 
 /**
- * A collection of shared character collections and snippets
- * for regular expressions.
+ * a collection of shared character collections and snippets for regular expressions
  */
 class Chars
 {

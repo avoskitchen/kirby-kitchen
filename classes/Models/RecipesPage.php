@@ -12,11 +12,6 @@ class RecipesPage extends Page
     use HasCategories;
     use HasUnits;
 
-    public function __construct(array $props)
-    {
-        $this->setProperties($props);
-    }
-
     public function latest(int $limit = 0, bool $unlisted = false): Collection
     {
         $items = $this->children();

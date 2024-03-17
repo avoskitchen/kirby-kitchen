@@ -3,7 +3,7 @@
 namespace AvosKitchen\Kitchen\Traits;
 
 use AvosKitchen\Kitchen\Category;
-use Kirby\Cms\Field;
+use Kirby\Content\Field;
 use Kirby\Toolkit\Collection;
 
 /**
