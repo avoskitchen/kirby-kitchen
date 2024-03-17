@@ -20,6 +20,8 @@ The plugin provides a set of templates that can be used as a starting point for 
 
 - Kirby 4.1.0+
 - PHP 8.1+
+- A locale must be set (for future versions)
+- `intl` must be used as date formatter
 
 ## Installation
 

@@ -97,6 +97,17 @@ App::plugin('avoskitchen/kitchen', [
                     break;
             }
         },
+        'system.loadPlugins:after' => function () {
+            $kirby = kirby();
+
+            if ($kirby->option('date.handler') !== 'intl') {
+                throw new Exception('The kitchen plugin requires `date.handler` to be `intl`, see https://getkirby.com/docs/reference/system/options/date');
+            }
+
+            if (! $kirby->multilang() && empty($kirby->option('locale'))) {
+                throw new Exception('Please use languages or set `locale` in your config file.');
+            }
+        }
     ],
 
     'pageModels' => [
