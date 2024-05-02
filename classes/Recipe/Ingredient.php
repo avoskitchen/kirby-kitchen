@@ -132,7 +132,7 @@ class Ingredient
 
     public function html(float $yieldFactor = 1): string
     {
-        $template = '<li class="' . option('avoskitchen.kitchen.ingredientClass', 'ingredient') . '" markdown="1"><span class="' . option('avoskitchen.kitchen.ingredientAmountClass') . '">{amount}</span> <span class="' . option('avoskitchen.kitchen.ingredientItemClass') . '"><span>{item}</span></span></li>';
+        $template = '<li class="' . option('avoskitchen.kitchen.ingredientClass', 'ingredient') . '" markdown="1"><span class="' . option('avoskitchen.kitchen.ingredientAmountClass') . '"><span>{amount}&nbsp;</span></span><span class="' . option('avoskitchen.kitchen.ingredientItemClass') . '"><span>{item}</span></span></li>';
 
         return $this->format($yieldFactor, $template);
     }
